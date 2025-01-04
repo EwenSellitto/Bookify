@@ -9,6 +9,8 @@ services:
   backend:
     build:
       context: ./server
+      dockerfile: Dockerfile
+      target: dev
     ports:
       - "5000:5000" # Le backend sera accessible sur http://localhost:5000
     volumes:
