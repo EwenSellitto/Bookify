@@ -1,15 +1,16 @@
-version: '3'
+version: "3"
 services:
   frontend:
     build:
       context: ./client
     ports:
       - "3000:80" # Le frontend sera accessible sur http://localhost:3000
+
   backend:
     build:
       context: ./server
     ports:
       - "5000:5000" # Le backend sera accessible sur http://localhost:5000
     volumes:
-      - ./server:/app # Rechargement automatique en dev
+      - ./server:/app:rw # Rechargement automatique en dev
       - /app/node_modules
