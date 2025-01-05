@@ -9,11 +9,16 @@ export class DbpediaService {
     try {
       // Construct the SPARQL query for searching books and their authors
       const sparqlQuery = `
-        SELECT ?book ?bookLabel ?author ?authorLabel WHERE {
+        SELECT ?book ?bookLabel ?author ?authorLabel ?releaseDate WHERE {
           ?book rdf:type dbo:Book .
           ?book rdfs:label ?bookLabel .
           ?book dbo:author ?author .
           ?author rdfs:label ?authorLabel .
+          OPTIONAL {
+            { ?book dbp:releaseDate ?releaseDate . }
+           UNION
+            { ?book dbo:publicationDate ?releaseDate . }
+          }
           FILTER (lang(?bookLabel) = "en")
           FILTER (lang(?authorLabel) = "en" || !bound(?authorLabel))
           FILTER (regex(?bookLabel, "${query}", "i"))
@@ -36,6 +41,7 @@ export class DbpediaService {
         bookLabel: result.bookLabel.value,
         // author: result.author ? result.author.value : null,
         authorLabel: result.authorLabel ? result.authorLabel.value : 'Unknown',
+        releaseDate: result.releaseDate ? result.releaseDate.value : 'Unknown',
       }));
 
       return results;
