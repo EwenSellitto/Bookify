@@ -59,7 +59,6 @@ export class DbpediaService {
 
   async searchBooksByAuthorOrGenre(author: string, genre: string): Promise<any> {
     try {
-      // Build SPARQL query
       const sparqlQuery = `
         SELECT ?book ?bookLabel ?author ?authorLabel ?date ?genre ?genreLabel WHERE {
             ?book rdf:type dbo:Book .
@@ -87,16 +86,13 @@ export class DbpediaService {
         LIMIT 100
       `;
 
-      // Parameters for the request
       const params = {
         query: sparqlQuery,
         format: 'json',
       };
 
-      // Make the request to DBpedia's SPARQL endpoint
       const response = await axios.get(this.dbpediaUrl, { params });
 
-      // Map the results into a more user-friendly structure
       const results = response.data.results.bindings.map((result) => ({
         bookLabel: result.bookLabel.value,
         authorLabel: result.authorLabel ? result.authorLabel.value : 'Unknown',
