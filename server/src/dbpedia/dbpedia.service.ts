@@ -9,19 +9,22 @@ export class DbpediaService {
     try {
       // Construct the SPARQL query for searching books and their authors
       const sparqlQuery = `
-        SELECT ?book ?bookLabel ?author ?authorLabel ?releaseDate WHERE {
-          ?book rdf:type dbo:Book .
-          ?book rdfs:label ?bookLabel .
-          ?book dbo:author ?author .
-          ?author rdfs:label ?authorLabel .
-          OPTIONAL {
-            { ?book dbp:releaseDate ?releaseDate . }
-           UNION
-            { ?book dbo:publicationDate ?releaseDate . }
-          }
-          FILTER (lang(?bookLabel) = "en")
-          FILTER (lang(?authorLabel) = "en" || !bound(?authorLabel))
-          FILTER (regex(?bookLabel, "${query}", "i"))
+        SELECT ?book ?bookLabel ?author ?authorLabel ?releaseDate ?genre ?genreLabel WHERE {
+            ?book rdf:type dbo:Book .
+            ?book rdfs:label ?bookLabel .
+            ?book dbo:author ?author .
+            ?author rdfs:label ?authorLabel .
+            ?book dbp:genre ?genre .
+            ?genre rdfs:label ?genreLabel .
+            OPTIONAL {
+                { ?book dbp:releaseDate ?releaseDate . }
+            UNION
+                { ?book dbo:publicationDate ?releaseDate . }
+            }
+            FILTER (lang(?bookLabel) = "en")
+            FILTER (lang(?authorLabel) = "en" || !bound(?authorLabel))
+            FILTER (lang(?genreLabel) = "en")
+            FILTER (regex(?bookLabel, "${query}", "i"))
         }
         LIMIT 10
       `;
@@ -42,6 +45,7 @@ export class DbpediaService {
         // author: result.author ? result.author.value : null,
         authorLabel: result.authorLabel ? result.authorLabel.value : 'Unknown',
         releaseDate: result.releaseDate ? result.releaseDate.value : 'Unknown',
+        genre: result.genreLabel ? result.genreLabel.value : 'Unknown',
       }));
 
       return results;
