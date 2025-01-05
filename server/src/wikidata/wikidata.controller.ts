@@ -1,7 +1,7 @@
 import { Controller, Get, Query, HttpException, HttpStatus } from '@nestjs/common';
 import { WikidataService } from './wikidata.service';
 
-@Controller('books')
+@Controller('wikidata')
 export class WikidataController {
   constructor(private readonly WikidataService: WikidataService) {}
 

@@ -1,7 +1,7 @@
 import { Controller, Get, Query, HttpException, HttpStatus } from '@nestjs/common';
 import { DbpediaService } from './dbpedia.service'; // Assuming DbpediaService is created similarly to WikidataService
 
-@Controller('booksy')
+@Controller('dbpedia')
 export class DbpediaController {
   constructor(private readonly dbpediaService: DbpediaService) {}
 
