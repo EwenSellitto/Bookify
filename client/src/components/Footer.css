@@ -1,0 +1,101 @@
+/* Footer Container */
+.footer {
+  background-color: #1f2937; /* Dark Gray */
+  color: #ffffff;
+  padding: 1rem 0; /* Reduced padding */
+  font-size: 0.8rem; /* Smaller text */
+  border-top: 3px solid #4f46e5; /* Indigo accent */
+}
+
+/* Footer Content Layout */
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem; /* Increased gap */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Footer Sections */
+.footer-section {
+  flex: 1;
+  min-width: 150px;
+}
+
+.footer-section h4 {
+  font-size: 1rem; /* Smaller heading */
+  margin-bottom: 0.5rem; /* Reduced spacing */
+  color: #f59e0b; /* Gold */
+}
+
+.footer-section p {
+  margin: 0;
+  line-height: 1.3; /* Tighter line height */
+  color: #d1d5db; /* Light Gray */
+}
+
+/* Footer Links */
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.3rem; /* Reduced margin */
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #d1d5db;
+  font-size: 0.8rem; /* Smaller font size */
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #4f46e5; /* Indigo */
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 0.8rem; /* Smaller gap */
+}
+
+.social-icons a {
+  text-decoration: none;
+  color: #d1d5db;
+  font-size: 0.8rem; /* Smaller font size */
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #4f46e5; /* Indigo */
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  margin-top: 1rem;
+  text-align: center;
+  color: #9ca3af; /* Gray */
+  font-size: 0.7rem; /* Smaller text */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* Smaller gap */
+  }
+
+  .footer-section {
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
