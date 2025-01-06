@@ -7,30 +7,20 @@ export class DbpediaController {
 
   @Get('search')
   async searchBooks(
-    @Query('query') query?: string,
+    @Query('title') title?: string,
     @Query('author') author?: string,
     @Query('genre') genre?: string,
   ) {
-    if (!query && !author && !genre) {
+    if (!title && !author && !genre) {
       throw new HttpException(
-        'At least one parameter (query, author, or genre) is required',
+        'At least one parameter (title, author, or genre) is required',
         HttpStatus.BAD_REQUEST,
       );
     }
 
     try {
-      if (author || genre) {
-        // Search by author or genre
-        return await this.dbpediaService.searchBooksByAuthorOrGenre(author, genre);
-      } else if (query) {
-        // Search by general query
-        return await this.dbpediaService.searchBooks(query);
-      } else {
-        throw new HttpException(
-          'Invalid combination of query parameters',
-          HttpStatus.BAD_REQUEST,
-        );
-      }
+      // Use the combined method in DbpediaService
+      return await this.dbpediaService.searchBooks(title, author, genre);
     } catch (error) {
       throw new HttpException(
         'Error while fetching book details from DBpedia',
