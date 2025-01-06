@@ -3,7 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import BookDetails from "./pages/BookDetails";
 import Home from "./pages/Home";
+import MyBooks from "./pages/MyBooks";
 import Recommendations from "./pages/Recommendations";
 
 function App() {
@@ -11,7 +13,7 @@ function App() {
     {
       title: "The Hunger Games: Book 1",
       author: "Suzanne Collins",
-      coverImage: "https://example.com/hunger-games.jpg",
+      coverImage: "cover",
       genres: [
         "Young Adult Fiction",
         "Juvenile Fiction",
@@ -21,43 +23,43 @@ function App() {
     {
       title: "Harry Potter and the Philosopher's Stone",
       author: "J.K. Rowling",
-      coverImage: "https://example.com/harry-potter.jpg",
+      coverImage: "cover",
       genres: ["Fiction", "Fantasy"],
     },
     {
       title: "The Da Vinci Code",
       author: "Dan Brown",
-      coverImage: "https://example.com/da-vinci-code.jpg",
+      coverImage: "cover",
       genres: ["Fiction", "Mystery"],
     },
     {
       title: "To Kill a Mockingbird",
       author: "Harper Lee",
-      coverImage: "https://example.com/to-kill-a-mockingbird.jpg",
+      coverImage: "cover",
       genres: ["Fiction", "Classic"],
     },
     {
       title: "1984",
       author: "George Orwell",
-      coverImage: "https://example.com/1984.jpg",
+      coverImage: "cover",
       genres: ["Fiction", "Dystopian"],
     },
     {
       title: "Pride and Prejudice",
       author: "Jane Austen",
-      coverImage: "https://example.com/pride-and-prejudice.jpg",
+      coverImage: "cover",
       genres: ["Fiction", "Romance"],
     },
     {
       title: "The Great Gatsby",
       author: "F. Scott Fitzgerald",
-      coverImage: "https://example.com/the-great-gatsby.jpg",
+      coverImage: "cover",
       genres: ["Fiction", "Classic"],
     },
     {
       title: "Moby Dick",
       author: "Herman Melville",
-      coverImage: "https://example.com/moby-dick.jpg",
+      coverImage: "cover",
       genres: ["Fiction", "Adventure"],
     },
   ];
@@ -91,12 +93,19 @@ function App() {
               />
             }
           />
-          <Route path="/my-books" element={<div>My Books</div>} />
+          <Route
+            path="/my-books"
+            element={<MyBooks books={sampleBooks.slice(0, 4)} />}
+          />
           <Route
             path="/recommendations"
             element={<Recommendations books={sampleBooks} />}
           />
           <Route path="/profile" element={<div>Profile</div>} />
+          <Route
+            path="/books/:id"
+            element={<BookDetails books={sampleBooks} />}
+          />
         </Routes>
       </div>
       <Footer />

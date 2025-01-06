@@ -1,11 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./TrendingBook.css";
 
-function TrendingBook({ book }) {
+function TrendingBook({ book, index }) {
   const placeholderImage = "https://via.placeholder.com/150";
+  const navigate = useNavigate();
 
   return (
-    <div className="trending-book-card">
+    <div
+      key={index}
+      className="trending-book-card"
+      onClick={() => navigate(`/books/${index}`)}
+    >
       <img
         src={book.coverImage}
         alt={book.title}

@@ -20,7 +20,7 @@ function Home({ trendingBooks, categories }) {
         <h2>Trending Books</h2>
         <div className="trending-books">
           {trendingBooks.map((book, index) => (
-            <TrendingBook book={book} />
+            <TrendingBook book={book} index={index} />
           ))}
         </div>
       </div>

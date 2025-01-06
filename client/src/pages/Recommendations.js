@@ -9,8 +9,8 @@ function Recommendations({ books }) {
         <p>Based on your reading history</p>
       </div>
       <div className="book-grid">
-        {books.map((book) => (
-          <BookCard book={book} />
+        {books.map((book, index) => (
+          <BookCard book={book} index={index} />
         ))}
       </div>
     </section>

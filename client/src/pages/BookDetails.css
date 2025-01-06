@@ -1,0 +1,118 @@
+.book-details-page {
+  padding: 1rem;
+}
+
+.book-details {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  border: 2px solid #ff9000; /* Orange */
+  color: #ff9000; /* Orange */
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem 0.8rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #ff9000; /* Orange */
+  color: white;
+  border-color: #ff9000; /* Orange */
+}
+
+.back-icon {
+  height: px;
+  width: 20px;
+  stroke: currentColor;
+  transition: stroke 0.3s ease;
+}
+
+.back-button:hover .back-icon {
+  stroke: white;
+}
+
+.book-details-content {
+  display: flex;
+  gap: 2rem;
+  max-width: 900px;
+  width: 100%;
+}
+
+.book-cover {
+  width: 300px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-top: 0.3rem;
+  padding-bottom: 0.6rem;
+}
+
+.book-info h1 {
+  font-size: 2rem;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.book-info h2 {
+  font-size: 1.2rem;
+  color: #666; /* Gray */
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.book-info p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-top: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.book-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #ff9000; /* Orange */
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #f57f17; /* Darker orange */
+}
+
+.btn-outline {
+  background-color: white;
+  color: #1f2937; /* Dark gray */
+  border: 1px solid #e5e7eb; /* Light gray */
+}
+
+.btn-outline:hover {
+  background-color: #f3f4f6; /* Light gray */
+}

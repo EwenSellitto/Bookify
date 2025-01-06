@@ -1,11 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import "./BookCard.css";
 
-function BookCard({ book }) {
+function BookCard({ book, index }) {
   const placeholderImage = "https://via.placeholder.com/150";
+  const navigate = useNavigate();
 
   return (
-    <div className="book-card">
-      <div className="book-cover">
+    <div className="book-card" onClick={() => navigate(`/books/${index}`)}>
+      <div className="book-card-cover">
         <img
           src={book.coverImage}
           alt={book.title}
@@ -16,7 +18,7 @@ function BookCard({ book }) {
         />
       </div>
 
-      <div className="book-details">
+      <div>
         <h3 className="book-title">{book.title}</h3>
         <p className="book-author">{book.author}</p>
 
