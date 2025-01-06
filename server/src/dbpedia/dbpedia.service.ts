@@ -7,17 +7,11 @@ export class DbpediaService {
 
   async searchBooks(title?: string, author?: string, genre?: string): Promise<any> {
     try {
-      // Dynamically construct the SPARQL query
-      const filters = [];
-      if (title) {
-        filters.push(`FILTER (regex(?bookLabel, "${title}", "i"))`);
-      }
-      if (author) {
-        filters.push(`FILTER (regex(?authorLabel, "${author}", "i"))`);
-      }
-      if (genre) {
-        filters.push(`FILTER (regex(?genreLabel, "${genre}", "i"))`);
-      }
+      const filters = [
+        title && `FILTER (regex(?bookLabel, "${title}", "i"))`,
+        author && `FILTER (regex(?authorLabel, "${author}", "i"))`,
+        genre && `FILTER (regex(?genreLabel, "${genre}", "i"))`,
+      ].filter(Boolean);
 
       const sparqlQuery = `
         SELECT ?book ?bookLabel ?author ?authorLabel ?releaseDate ?genre ?genreLabel WHERE {
@@ -44,16 +38,13 @@ export class DbpediaService {
         LIMIT 100
       `;
 
-      // Parameters for the request
       const params = {
         query: sparqlQuery,
         format: 'json',
       };
 
-      // Make the request to DBpedia's SPARQL endpoint
       const response = await axios.get(this.dbpediaUrl, { params });
 
-      // Process the results
       const results = response.data.results.bindings.map((result) => ({
         bookLabel: result.bookLabel.value,
         authorLabel: result.authorLabel ? result.authorLabel.value : 'Unknown',

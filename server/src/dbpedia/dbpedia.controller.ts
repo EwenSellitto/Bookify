@@ -19,7 +19,6 @@ export class DbpediaController {
     }
 
     try {
-      // Use the combined method in DbpediaService
       return await this.dbpediaService.searchBooks(title, author, genre);
     } catch (error) {
       throw new HttpException(
