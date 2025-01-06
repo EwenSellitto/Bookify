@@ -2,7 +2,7 @@ import React from "react";
 import TrendingBook from "../components/TrendingBook";
 import "./Home.css";
 
-function Home({ trendingBooks }) {
+function Home({ trendingBooks, categories }) {
   return (
     <div className="home">
       <div className="search-section">
@@ -21,6 +21,17 @@ function Home({ trendingBooks }) {
         <div className="trending-books">
           {trendingBooks.map((book, index) => (
             <TrendingBook book={book} />
+          ))}
+        </div>
+      </div>
+
+      <div className="categories-section">
+        <h2>Explore Categories</h2>
+        <div className="categories">
+          {categories.map((category, index) => (
+            <button key={index} className="category-button">
+              {category}
+            </button>
           ))}
         </div>
       </div>

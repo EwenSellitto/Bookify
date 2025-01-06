@@ -62,6 +62,21 @@ function App() {
     },
   ];
 
+  const categories = [
+    "Science Fiction",
+    "Human Alien Encounters",
+    "Adventure Stories",
+    "Fantasy Fiction",
+    "Time Travel",
+    "Young Adult Fiction",
+    "Love Stories",
+    "Romance",
+    "Frontier and Pioneer Life",
+    "Historical Fiction",
+    "Dystopias",
+    "Thrillers & Suspense",
+  ];
+
   return (
     <div className="app">
       <Header />
@@ -69,7 +84,12 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Home trendingBooks={sampleBooks.slice(0, 6)} />}
+            element={
+              <Home
+                trendingBooks={sampleBooks.slice(0, 6)}
+                categories={categories}
+              />
+            }
           />
           <Route path="/my-books" element={<div>My Books</div>} />
           <Route
