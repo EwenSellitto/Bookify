@@ -1,4 +1,6 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Recommendations from "./pages/Recommendations";
@@ -63,7 +65,15 @@ function App() {
     <div className="app">
       <Header />
       <div className="main-content">
-        <Recommendations books={sampleBooks} />
+        <Routes>
+          <Route path="/" element={<div>Home</div>} />
+          <Route path="/my-books" element={<div>My Books</div>} />
+          <Route
+            path="/recommendations"
+            element={<Recommendations books={sampleBooks} />}
+          />
+          <Route path="/profile" element={<div>Profile</div>} />
+        </Routes>
       </div>
       <Footer />
     </div>
