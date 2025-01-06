@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import SeachIcon from "./../assets/search.svg";
+import ProfileIcon from "./../assets/profile.svg";
 import "./Header.css";
 
 function Header() {
@@ -35,23 +35,26 @@ function Header() {
               Recommendations
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/profile"
-              className={location.pathname === "/profile" ? "active" : ""}
-            >
-              Profile
-            </NavLink>
-          </li>
         </ul>
       </nav>
-      <div className="logo">BookFinder</div>
-      <div className="search-bar">
-        <input type="text" placeholder="Rechercher un livre..." />
-        <button>
-          <img src={SeachIcon} alt="Rechercher" />
-        </button>
+
+      <div
+        className="logo"
+        onClick={() => {
+          window.location.href = "/";
+        }}
+      >
+        BookFinder
       </div>
+
+      <button
+        className="profile"
+        onClick={() => {
+          window.location.href = "/profile";
+        }}
+      >
+        <img src={ProfileIcon} alt="Profile" className="profile-icon" />
+      </button>
     </header>
   );
 }

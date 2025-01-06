@@ -3,8 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #1f2937; /* Dark Gray */
+  padding: 1.2rem 2rem;
+  background-color: #0e0e0e; /* Dark Gray */
   color: #ffffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -18,8 +18,9 @@
   justify-content: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #f9a826; /* Yellow */
+  color: #ff9000; /* Orange */
   text-decoration: none;
+  cursor: pointer;
 }
 
 /* Navigation Menu */
@@ -50,52 +51,34 @@
 }
 
 .header nav ul li a:hover {
-  color: #f9a826; /* Yellow */
+  color: #ff9000; /* Orange */
 }
 
 .header nav ul li a.active {
-  border-bottom: 2px solid #f9a826; /* Underline for active page */
+  border-bottom: 2px solid #ff9000; /* Underline for active page */
 }
 
-/* Search Bar */
-.search-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #ffffff;
-  border-radius: 5px;
-  padding: 0.3rem 0.6rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.search-bar input {
+.profile {
+  background-color: #252525;
+  border-radius: 25px;
   border: none;
-  outline: none;
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  flex: 1;
-}
-
-.search-bar button {
-  background-color: #f9a826; /* Yellow */
-  border: none;
-  color: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  height: 45px;
+  width: 45px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.1s ease;
 }
 
-.search-bar button:hover {
-  background-color: #f57f17; /* Dark Yellow */
+.profile-icon {
+  height: 35px;
+  width: 35px;
 }
 
-.search-bar button img {
-  width: 1rem;
-  /* lower the button */
-  position: relative;
-  top: 2px;
+.profile:hover {
+  background-color: #353535;
 }
 
 /* Mobile Responsiveness */
@@ -109,9 +92,5 @@
   .header nav ul {
     flex-direction: column;
     gap: 0.8rem;
-  }
-
-  .search-bar {
-    width: 100%;
   }
 }
