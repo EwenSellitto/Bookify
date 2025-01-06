@@ -4,9 +4,8 @@
   gap: 1rem;
 }
 
-.book-grid .book-card {
-  display: flex;
-  width: 100%;
+.recommendations {
+  padding: 20px;
 }
 
 .recommendations-header {
@@ -15,8 +14,8 @@
 }
 
 .recommendations-header h2 {
-  color: #111;
-  font-size: 28px;
+  color: #333;
+  font-size: 1.9rem;
   font-weight: 600;
   line-height: 43px;
   margin: 0 0 12px 0;
@@ -26,7 +25,7 @@
 
 .recommendations-header p {
   color: #4e4e4e;
-  font-size: 16px;
+  font-size: 1.15rem;
   font-weight: 400;
   margin: 0 0 24px 0;
   font-family: Barlow, Helvetica, Arial, sans-serif;
