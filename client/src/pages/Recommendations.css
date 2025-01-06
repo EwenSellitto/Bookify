@@ -4,11 +4,6 @@
   gap: 1rem;
 }
 
-.book-grid .book-card {
-  display: flex;
-  width: 100%;
-}
-
 .recommendations {
   padding: 20px;
 }
