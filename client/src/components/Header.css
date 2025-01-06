@@ -4,7 +4,7 @@
   align-items: center;
   padding: 1.2rem 2rem;
   background-color: #0e0e0e; /* Black */
-  color: #ffffff;
+  color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -38,7 +38,7 @@
 
 .header nav ul li a {
   text-decoration: none;
-  color: #ffffff;
+  color: white;
   font-size: 1rem;
   padding-bottom: 0.3rem;
   border-bottom: 2px solid transparent;
@@ -56,7 +56,7 @@
 }
 
 .profile {
-  background-color: #252525;
+  background-color: #252525; /* Black */
   border-radius: 25px;
   border: none;
   cursor: pointer;
@@ -75,15 +75,47 @@
 }
 
 .profile:hover {
-  background-color: #353535;
+  background-color: #353535; /* Darker Black */
 }
 
-@media (max-width: 1030px) {
+.mobile-header {
+  display: none;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+}
+
+.hamburger-menu {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hamburger-bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+}
+
+@media (max-width: 868px) {
+  .desktop-header {
+    display: none;
+  }
+
+  .mobile-header {
+    display: flex;
+  }
+
   .nav-menu {
     display: none;
     flex-direction: column;
     align-items: center;
-    background-color: #0e0e0e;
+    background-color: #0e0e0e; /* Black */
     position: absolute;
     top: 70px;
     right: 0;
