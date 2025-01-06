@@ -80,8 +80,8 @@
 }
 
 .categories-section {
-  margin-top: 50px;
-  padding: 30px 20px 50px 20px;
+  margin-top: 70px;
+  padding: 50px 20px 80px 20px;
   background-color: #f7f7f7; /* Light gray */
   display: flex;
   flex-direction: column;
@@ -91,7 +91,7 @@
 .categories-section h2 {
   font-size: 1.8rem;
   margin-top: 0px;
-  margin-bottom: 35px;
+  margin-bottom: 50px;
   color: #333; /* Dark gray */
 }
 

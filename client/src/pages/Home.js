@@ -1,5 +1,5 @@
 import React from "react";
-import TrendingBook from "../components/TrendingBook";
+import PopularBook from "../components/PopularBook";
 import "./Home.css";
 
 function Home({ trendingBooks, categories }) {
@@ -17,10 +17,10 @@ function Home({ trendingBooks, categories }) {
       </div>
 
       <div className="trending-section">
-        <h2>Trending Books</h2>
+        <h2>Popular Books</h2>
         <div className="trending-books">
           {trendingBooks.map((book, index) => (
-            <TrendingBook book={book} index={index} />
+            <PopularBook book={book} index={index} />
           ))}
         </div>
       </div>

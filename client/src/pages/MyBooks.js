@@ -1,5 +1,5 @@
 import React from "react";
-import TrendingBook from "../components/TrendingBook";
+import PopularBook from "../components/PopularBook";
 import "./MyBooks.css";
 
 function MyBooks({ books }) {
@@ -9,7 +9,7 @@ function MyBooks({ books }) {
       {books.length > 0 ? (
         <div className="books-grid">
           {books.map((book, index) => (
-            <TrendingBook book={book} index={index} />
+            <PopularBook book={book} index={index} />
           ))}
         </div>
       ) : (

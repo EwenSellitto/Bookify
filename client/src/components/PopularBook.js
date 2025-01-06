@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./TrendingBook.css";
+import "./PopularBook.css";
 
-function TrendingBook({ book, index }) {
+function PopularBook({ book, index }) {
   const placeholderImage = "https://via.placeholder.com/150";
   const navigate = useNavigate();
 
@@ -25,4 +25,4 @@ function TrendingBook({ book, index }) {
   );
 }
 
-export default TrendingBook;
+export default PopularBook;
