@@ -36,6 +36,7 @@ export class GoogleBooksService {
           !item.volumeInfo.title?.toLowerCase().includes('analysis')
         )
         .map((item) => ({
+          id: item.id,
           title: item.volumeInfo.title || 'Unknown Title',
           authors: item.volumeInfo.authors || ['Unknown Author'],
           publishedDate: item.volumeInfo.publishedDate || 'Unknown Date',
@@ -49,6 +50,36 @@ export class GoogleBooksService {
     } catch (error) {
       throw new HttpException(
         'Error while fetching data from Google Books API',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+ async getBookById(id: string): Promise<any> {
+    try {
+      const url = `${this.googleBooksUrl}/${id}?key=${this.apiKey}`;
+
+      console.log(url);
+      const response = await axios.get(url);
+      if (!response.data) {
+        throw new HttpException('Book not found', HttpStatus.NOT_FOUND);
+      }
+
+      const book = {
+        id: response.data.id,
+        title: response.data.volumeInfo.title || 'Unknown Title',
+        authors: response.data.volumeInfo.authors || ['Unknown Author'],
+        publishedDate: response.data.volumeInfo.publishedDate || 'Unknown Date',
+        genre: response.data.volumeInfo.categories || ['Unknown Genre'],
+        thumbnail: response.data.volumeInfo.imageLinks?.thumbnail || null,
+        description: response.data.volumeInfo.description || 'No description available',
+        rating: response.data.volumeInfo.averageRating || 'No rating available',
+      };
+
+      return book;
+    } catch (error) {
+      throw new HttpException(
+        'Error while fetching book details',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
