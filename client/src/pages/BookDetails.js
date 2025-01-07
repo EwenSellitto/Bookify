@@ -86,7 +86,7 @@ function BookDetails() {
               ))}
             </div>
             <div className="book-actions">
-              {book.buylinkee && (
+              {book.buylink && (
                 <button
                   className="btn btn-primary"
                   onClick={() => {
