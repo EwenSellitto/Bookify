@@ -30,6 +30,24 @@ export class GoogleBooksController {
     }
   }
 
+  @Get('genres')
+  async getGenres(@Query('count') count: number) {
+    if (!count || count <= 0) {
+      throw new HttpException(
+        'Count must be a positive integer',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    try {
+      return await this.googleBooksService.getGenres(count);
+    } catch (error) {
+      throw new HttpException(
+        'Error while fetching genres',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   @Get(':id')
   async getBookById(@Param('id') id: string) {
     try {
@@ -41,4 +59,5 @@ export class GoogleBooksController {
       );
     }
   }
+
 }
