@@ -68,7 +68,7 @@ function Home() {
         id: book.id,
         title: book.title,
         authors: book.authors,
-        coverImage: book.thumbnail,
+        thumbnail: book.thumbnail,
         genres: book.genre,
       });
     });

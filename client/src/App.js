@@ -13,7 +13,7 @@ function App() {
     {
       title: "The Hunger Games: Book 1",
       authors: ["Suzanne Collins"],
-      coverImage: "cover",
+      thumbnail: "cover",
       genres: [
         "Young Adult Fiction",
         "Juvenile Fiction",
@@ -23,43 +23,43 @@ function App() {
     {
       title: "Harry Potter and the Philosopher's Stone",
       authors: ["J.K. Rowling"],
-      coverImage: "cover",
+      thumbnail: "cover",
       genres: ["Fiction", "Fantasy"],
     },
     {
       title: "The Da Vinci Code",
       authors: ["Dan Brown"],
-      coverImage: "cover",
+      thumbnail: "cover",
       genres: ["Fiction", "Mystery"],
     },
     {
       title: "To Kill a Mockingbird",
       authors: ["Harper Lee"],
-      coverImage: "cover",
+      thumbnail: "cover",
       genres: ["Fiction", "Classic"],
     },
     {
       title: "1984",
       authors: ["George Orwell"],
-      coverImage: "cover",
+      thumbnail: "cover",
       genres: ["Fiction", "Dystopian"],
     },
     {
       title: "Pride and Prejudice",
       authors: ["Jane Austen"],
-      coverImage: "cover",
+      thumbnail: "cover",
       genres: ["Fiction", "Romance"],
     },
     {
       title: "The Great Gatsby",
       authors: ["F. Scott Fitzgerald"],
-      coverImage: "cover",
+      thumbnail: "cover",
       genres: ["Fiction", "Classic"],
     },
     {
       title: "Moby Dick",
       authors: ["Herman Melville"],
-      coverImage: "cover",
+      thumbnail: "cover",
       genres: ["Fiction", "Adventure"],
     },
   ];

@@ -10,7 +10,7 @@ function BookDetails() {
   const [book, setBook] = useState({
     title: "",
     authors: [],
-    coverImage: "",
+    thumbnail: "",
     genres: [],
     description: "",
   });
@@ -28,10 +28,6 @@ function BookDetails() {
           },
         }).then((response) => response.json());
 
-        console.log(res);
-
-        res.coverImage = res.thumbnail;
-        delete res.thumbnail;
         setBook(res);
       } catch (error) {
         console.log(error);
@@ -65,7 +61,7 @@ function BookDetails() {
         <div className="book-details-content">
           <img
             className="book-cover"
-            src={book.coverImage}
+            src={book.thumbnail}
             alt={book.title}
             onError={(e) => {
               e.target.src = placeholderImage;
@@ -89,11 +85,20 @@ function BookDetails() {
                 </span>
               ))}
             </div>
-            <p>{book.description}</p>
             <div className="book-actions">
-              <button className="btn btn-primary">Buy Now</button>
+              {book.buylinkee && (
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    window.open(book.buylink, "_blank");
+                  }}
+                >
+                  Buy Now
+                </button>
+              )}
               <button className="btn btn-outline">Add To List</button>
             </div>
+            <p>{book.description}</p>
           </div>
         </div>
       </div>

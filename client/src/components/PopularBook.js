@@ -13,7 +13,7 @@ function PopularBook({ book, index }) {
       onClick={() => navigate(`/books/${book.id}`)}
     >
       <img
-        src={book.coverImage}
+        src={book.thumbnail}
         alt={book.title}
         onError={(e) => (e.target.src = placeholderImage)}
       />

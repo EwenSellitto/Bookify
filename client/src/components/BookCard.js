@@ -13,7 +13,7 @@ function BookCard({ book, index }) {
     >
       <div className="book-card-cover">
         <img
-          src={book.coverImage}
+          src={book.thumbnail}
           alt={book.title}
           onError={(e) => {
             e.target.onerror = null;
