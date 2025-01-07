@@ -124,6 +124,7 @@ export class GoogleBooksService {
         description: response.data.volumeInfo.description || 'No description available',
         rating: response.data.volumeInfo.averageRating || 'No rating available',
         ratingcount: response.data.volumeInfo.ratingsCount || 'No rating count available',
+        buylink: response.data.saleInfo.buyLink || 'No buy link available',
         score: this.calculateBookScore(
           response.data.volumeInfo.averageRating || 0,
           response.data.volumeInfo.ratingsCount || 0,
