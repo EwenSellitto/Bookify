@@ -6,7 +6,11 @@ function BookCard({ book, index }) {
   const navigate = useNavigate();
 
   return (
-    <div className="book-card" onClick={() => navigate(`/books/${index}`)}>
+    <div
+      key={index}
+      className="book-card"
+      onClick={() => navigate(`/books/${index}`)}
+    >
       <div className="book-card-cover">
         <img
           src={book.coverImage}
@@ -20,7 +24,9 @@ function BookCard({ book, index }) {
 
       <div>
         <h3 className="book-title">{book.title}</h3>
-        <p className="book-author">{book.author}</p>
+        <p className="book-author">
+          {book.authors.length > 1 ? book.authors.join(", ") : book.authors[0]}
+        </p>
 
         <div className="book-genres">
           {book.genres.map((genre, index) => (

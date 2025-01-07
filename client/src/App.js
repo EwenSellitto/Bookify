@@ -12,7 +12,7 @@ function App() {
   const sampleBooks = [
     {
       title: "The Hunger Games: Book 1",
-      author: "Suzanne Collins",
+      authors: ["Suzanne Collins"],
       coverImage: "cover",
       genres: [
         "Young Adult Fiction",
@@ -22,43 +22,43 @@ function App() {
     },
     {
       title: "Harry Potter and the Philosopher's Stone",
-      author: "J.K. Rowling",
+      authors: ["J.K. Rowling"],
       coverImage: "cover",
       genres: ["Fiction", "Fantasy"],
     },
     {
       title: "The Da Vinci Code",
-      author: "Dan Brown",
+      authors: ["Dan Brown"],
       coverImage: "cover",
       genres: ["Fiction", "Mystery"],
     },
     {
       title: "To Kill a Mockingbird",
-      author: "Harper Lee",
+      authors: ["Harper Lee"],
       coverImage: "cover",
       genres: ["Fiction", "Classic"],
     },
     {
       title: "1984",
-      author: "George Orwell",
+      authors: ["George Orwell"],
       coverImage: "cover",
       genres: ["Fiction", "Dystopian"],
     },
     {
       title: "Pride and Prejudice",
-      author: "Jane Austen",
+      authors: ["Jane Austen"],
       coverImage: "cover",
       genres: ["Fiction", "Romance"],
     },
     {
       title: "The Great Gatsby",
-      author: "F. Scott Fitzgerald",
+      authors: ["F. Scott Fitzgerald"],
       coverImage: "cover",
       genres: ["Fiction", "Classic"],
     },
     {
       title: "Moby Dick",
-      author: "Herman Melville",
+      authors: ["Herman Melville"],
       coverImage: "cover",
       genres: ["Fiction", "Adventure"],
     },
@@ -84,15 +84,7 @@ function App() {
       <Header />
       <div className="main-content">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                trendingBooks={sampleBooks.slice(0, 6)}
-                categories={categories}
-              />
-            }
-          />
+          <Route path="/" element={<Home categories={categories} />} />
           <Route
             path="/my-books"
             element={<MyBooks books={sampleBooks.slice(0, 4)} />}
@@ -102,10 +94,7 @@ function App() {
             element={<Recommendations books={sampleBooks} />}
           />
           <Route path="/profile" element={<div>Profile</div>} />
-          <Route
-            path="/books/:id"
-            element={<BookDetails books={sampleBooks} />}
-          />
+          <Route path="/books/:id" element={<BookDetails />} />
         </Routes>
       </div>
       <Footer />

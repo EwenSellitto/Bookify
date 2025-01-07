@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Param, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Param, Query } from '@nestjs/common';
 import { GoogleBooksService } from './google-books.service';
 
 @Controller('google-books')
@@ -48,8 +48,8 @@ export class GoogleBooksController {
     }
   }
 
-  @Get(':id')
-  async getBookById(@Param('id') id: string) {
+  @Get('book')
+  async getBookById(@Query('id') id: string) {
     try {
       return await this.googleBooksService.getBookById(id);
     } catch (error) {
