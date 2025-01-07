@@ -1,10 +1,9 @@
 import {
   Controller,
   Get,
-  Query,
-  Param,
   HttpException,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 import { GoogleBooksService } from './google-books.service';
 
@@ -44,8 +43,27 @@ export class GoogleBooksController {
     }
   }
 
-  @Get(':id')
-  async getBookById(@Param('id') id: string) {
+  @Get('genres')
+  async getGenres(@Query('count') count: number) {
+    if (!count || count <= 0) {
+      throw new HttpException(
+        'Count must be a positive integer',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    try {
+      return this.googleBooksService.getGenres(count);
+    } catch (error) {
+      console.error(error);
+      throw new HttpException(
+        'Error while fetching genres',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Get('book')
+  async getBookById(@Query('id') id: string) {
     try {
       return await this.googleBooksService.getBookById(id);
     } catch (error) {

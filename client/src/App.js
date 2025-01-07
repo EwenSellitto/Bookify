@@ -6,14 +6,15 @@ import Header from "./components/Header";
 import BookDetails from "./pages/BookDetails";
 import Home from "./pages/Home";
 import MyBooks from "./pages/MyBooks";
+import NotFound from "./pages/NotFound";
 import Recommendations from "./pages/Recommendations";
 
 function App() {
   const sampleBooks = [
     {
       title: "The Hunger Games: Book 1",
-      author: "Suzanne Collins",
-      coverImage: "cover",
+      authors: ["Suzanne Collins"],
+      thumbnail: "cover",
       genres: [
         "Young Adult Fiction",
         "Juvenile Fiction",
@@ -22,61 +23,46 @@ function App() {
     },
     {
       title: "Harry Potter and the Philosopher's Stone",
-      author: "J.K. Rowling",
-      coverImage: "cover",
+      authors: ["J.K. Rowling"],
+      thumbnail: "cover",
       genres: ["Fiction", "Fantasy"],
     },
     {
       title: "The Da Vinci Code",
-      author: "Dan Brown",
-      coverImage: "cover",
+      authors: ["Dan Brown"],
+      thumbnail: "cover",
       genres: ["Fiction", "Mystery"],
     },
     {
       title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      coverImage: "cover",
+      authors: ["Harper Lee"],
+      thumbnail: "cover",
       genres: ["Fiction", "Classic"],
     },
     {
       title: "1984",
-      author: "George Orwell",
-      coverImage: "cover",
+      authors: ["George Orwell"],
+      thumbnail: "cover",
       genres: ["Fiction", "Dystopian"],
     },
     {
       title: "Pride and Prejudice",
-      author: "Jane Austen",
-      coverImage: "cover",
+      authors: ["Jane Austen"],
+      thumbnail: "cover",
       genres: ["Fiction", "Romance"],
     },
     {
       title: "The Great Gatsby",
-      author: "F. Scott Fitzgerald",
-      coverImage: "cover",
+      authors: ["F. Scott Fitzgerald"],
+      thumbnail: "cover",
       genres: ["Fiction", "Classic"],
     },
     {
       title: "Moby Dick",
-      author: "Herman Melville",
-      coverImage: "cover",
+      authors: ["Herman Melville"],
+      thumbnail: "cover",
       genres: ["Fiction", "Adventure"],
     },
-  ];
-
-  const categories = [
-    "Science Fiction",
-    "Human Alien Encounters",
-    "Adventure Stories",
-    "Fantasy Fiction",
-    "Time Travel",
-    "Young Adult Fiction",
-    "Love Stories",
-    "Romance",
-    "Frontier and Pioneer Life",
-    "Historical Fiction",
-    "Dystopias",
-    "Thrillers & Suspense",
   ];
 
   return (
@@ -84,15 +70,7 @@ function App() {
       <Header />
       <div className="main-content">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                trendingBooks={sampleBooks.slice(0, 6)}
-                categories={categories}
-              />
-            }
-          />
+          <Route path="/" element={<Home />} />
           <Route
             path="/my-books"
             element={<MyBooks books={sampleBooks.slice(0, 4)} />}
@@ -102,10 +80,8 @@ function App() {
             element={<Recommendations books={sampleBooks} />}
           />
           <Route path="/profile" element={<div>Profile</div>} />
-          <Route
-            path="/books/:id"
-            element={<BookDetails books={sampleBooks} />}
-          />
+          <Route path="/books/:id" element={<BookDetails />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <Footer />

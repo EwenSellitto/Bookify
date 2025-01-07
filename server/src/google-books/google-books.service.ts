@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 @Injectable()
@@ -6,10 +6,47 @@ export class GoogleBooksService {
   private readonly googleBooksUrl =
     'https://www.googleapis.com/books/v1/volumes';
   private readonly apiKey = 'AIzaSyDTbOl6J9TTT3wzjAHuj0iibcBkcJfbapk';
+  private readonly genres: string[] = [
+    'Fiction',
+    'Science',
+    'History',
+    'Fantasy',
+    'Mystery',
+    'Romance',
+    'Biography',
+    'Self-Help',
+    'Business',
+    'Juvenile Fiction',
+    'Travel',
+    'Sports',
+    'Religion',
+    'Psychology',
+    'Poetry',
+    'Philosophy',
+    'Music',
+    'Mathematics',
+    'Medical',
+    'Humor',
+    'Games',
+    'Gardening',
+    'Cooking',
+    'Thriller',
+    'Horror',
+  ];
 
   private calculateBookScore(rating: number, ratingCount: number): number {
     if (rating <= 0 || ratingCount < 0) return 0;
     return Math.round(((rating * Math.log(ratingCount + 1)) / 5) * 100) / 100;
+  }
+
+  getGenres(count: number = 5): string[] {
+    if (count <= 0)
+      throw new HttpException(
+        'Count must be a positive integer',
+        HttpStatus.BAD_REQUEST,
+      );
+
+    return this.genres.sort(() => 0.5 - Math.random()).slice(0, count);
   }
 
   async searchBooks(
@@ -52,7 +89,7 @@ export class GoogleBooksService {
               title: item.volumeInfo.title || 'Unknown Title',
               authors: item.volumeInfo.authors || ['Unknown Author'],
               publishedDate: item.volumeInfo.publishedDate || 'Unknown Date',
-              genre: item.volumeInfo.categories || ['Unknown Genre'],
+              genres: item.volumeInfo.categories || ['Unknown Genre'],
               thumbnail: item.volumeInfo.imageLinks?.thumbnail || null,
               description:
                 item.volumeInfo.description || 'No description available',
@@ -65,9 +102,7 @@ export class GoogleBooksService {
             }));
 
           for (const book of pageBooks) {
-            if (!booksMap.has(book.id)) {
-              booksMap.set(book.id, book);
-            }
+            if (!booksMap.has(book.id)) booksMap.set(book.id, book);
           }
         }
       }
@@ -108,13 +143,14 @@ export class GoogleBooksService {
         title: response.data.volumeInfo.title || 'Unknown Title',
         authors: response.data.volumeInfo.authors || ['Unknown Author'],
         publishedDate: response.data.volumeInfo.publishedDate || 'Unknown Date',
-        genre: response.data.volumeInfo.categories || ['Unknown Genre'],
+        genres: response.data.volumeInfo.categories || ['Unknown Genre'],
         thumbnail: response.data.volumeInfo.imageLinks?.thumbnail || null,
         description:
           response.data.volumeInfo.description || 'No description available',
         rating: response.data.volumeInfo.averageRating || 'No rating available',
         ratingcount:
           response.data.volumeInfo.ratingsCount || 'No rating count available',
+        buylink: response.data.saleInfo.buyLink || 'No buy link available',
         score: this.calculateBookScore(
           response.data.volumeInfo.averageRating || 0,
           response.data.volumeInfo.ratingsCount || 0,

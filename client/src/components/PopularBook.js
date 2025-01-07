@@ -10,16 +10,18 @@ function PopularBook({ book, index }) {
     <div
       key={index}
       className="trending-book-card"
-      onClick={() => navigate(`/books/${index}`)}
+      onClick={() => navigate(`/books/${book.id}`)}
     >
       <img
-        src={book.coverImage}
+        src={book.thumbnail}
         alt={book.title}
         onError={(e) => (e.target.src = placeholderImage)}
       />
       <div className="trending-book-info">
         <h3>{book.title}</h3>
-        <p>{book.author}</p>
+        <p>
+          {book.authors.length > 1 ? book.authors.join(", ") : book.authors[0]}
+        </p>
       </div>
     </div>
   );

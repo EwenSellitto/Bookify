@@ -53,14 +53,15 @@
   width: 300px;
   height: auto;
   border-radius: 8px;
+  align-self: flex-start;
 }
 
 .book-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   padding-top: 0.3rem;
   padding-bottom: 0.6rem;
+  flex: 1;
 }
 
 .book-info h1 {
@@ -79,14 +80,13 @@
 .book-info p {
   font-size: 1rem;
   line-height: 1.5;
-  margin-top: 0.6rem;
-  margin-bottom: 1rem;
 }
 
 .book-actions {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 .btn {
