@@ -23,7 +23,7 @@ export class GoogleBooksService {
 
       if (title) queryParams.push(`intitle:${title}`);
       if (author) queryParams.push(`inauthor:"${author}"`);
-      if (genre) queryParams.push(`subject:${genre}`);
+      if (genre) queryParams.push(`subject:"${genre}"`);
 
       const fullQuery = queryParams.join('+');
       const maxResults = 40;
@@ -35,6 +35,10 @@ export class GoogleBooksService {
         const response = await axios.get(url);
 
         if (response.data.items) {
+          if (genre) {
+            response.data.items = response.data.items.filter((item) =>
+              item.volumeInfo.categories?.includes(genre))
+          }
           const pageBooks = response.data.items
             .filter((item) =>
               item.volumeInfo.language === 'en'
