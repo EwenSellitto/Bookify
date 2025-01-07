@@ -6,47 +6,76 @@ export class GoogleBooksService {
   private readonly googleBooksUrl = 'https://www.googleapis.com/books/v1/volumes';
   private readonly apiKey = 'AIzaSyDTbOl6J9TTT3wzjAHuj0iibcBkcJfbapk';
 
-  async searchBooks(title?: string, author?: string, genre?: string): Promise<any> {
+  private calculateBookScore(rating: number, ratingCount: number): number {
+    if (rating <= 0 || ratingCount < 0) return 0;
+    return Math.round((rating * Math.log(ratingCount + 1)) / 5 * 100) / 100;
+  }
+
+  async searchBooks(
+    title?: string,
+    author?: string,
+    genre?: string,
+    page: number = 1,
+    pageSize: number = 10
+  ): Promise<any> {
     try {
       const queryParams: string[] = [];
 
-      if (title) {
-        queryParams.push(`intitle:${title}`);
-      }
-      if (author) {
-        queryParams.push(`inauthor:${author}`);
-      }
-      if (genre) {
-        queryParams.push(`subject:${genre}`);
-      }
+      if (title) queryParams.push(`intitle:${title}`);
+      if (author) queryParams.push(`inauthor:"${author}"`);
+      if (genre) queryParams.push(`subject:${genre}`);
 
       const fullQuery = queryParams.join('+');
-      const url = `${this.googleBooksUrl}?q=${fullQuery}&key=${this.apiKey}&langRestrict=en&orderBy=relevance&maxResults=40`;
+      const maxResults = 40;
+      const totalResults = 160;
+      const booksMap = new Map<string, any>();
 
-      const response = await axios.get(url);
+      for (let startIndex = 0; startIndex < totalResults; startIndex += maxResults) {
+        const url = `${this.googleBooksUrl}?q=${fullQuery}&key=${this.apiKey}&langRestrict=en&orderBy=relevance&maxResults=${maxResults}&startIndex=${startIndex}`;
+        const response = await axios.get(url);
 
-      if (!response.data.items) {
-        throw new HttpException('No books found', HttpStatus.NOT_FOUND);
+        if (response.data.items) {
+          const pageBooks = response.data.items
+            .filter((item) =>
+              item.volumeInfo.language === 'en'
+            )
+            .map((item) => ({
+              id: item.id,
+              title: item.volumeInfo.title || 'Unknown Title',
+              authors: item.volumeInfo.authors || ['Unknown Author'],
+              publishedDate: item.volumeInfo.publishedDate || 'Unknown Date',
+              genre: item.volumeInfo.categories || ['Unknown Genre'],
+              thumbnail: item.volumeInfo.imageLinks?.thumbnail || null,
+              description: item.volumeInfo.description || 'No description available',
+              rating: item.volumeInfo.averageRating || 0,
+              ratingcount: item.volumeInfo.ratingsCount || 0,
+              score: this.calculateBookScore(
+                item.volumeInfo.averageRating || 0,
+                item.volumeInfo.ratingsCount || 0,
+              ),
+            }));
+
+          for (const book of pageBooks) {
+            if (!booksMap.has(book.id)) {
+              booksMap.set(book.id, book);
+            }
+          }
+        }
       }
 
-      const books = response.data.items
-        .filter(item =>
-          item.volumeInfo.language === 'en' &&
-          !item.volumeInfo.title?.toLowerCase().includes('summary') &&
-          !item.volumeInfo.title?.toLowerCase().includes('analysis')
-        )
-        .map((item) => ({
-          id: item.id,
-          title: item.volumeInfo.title || 'Unknown Title',
-          authors: item.volumeInfo.authors || ['Unknown Author'],
-          publishedDate: item.volumeInfo.publishedDate || 'Unknown Date',
-          genre: item.volumeInfo.categories || ['Unknown Genre'],
-          thumbnail: item.volumeInfo.imageLinks?.thumbnail || null,
-          description: item.volumeInfo.description || 'No description available',
-          rating: item.volumeInfo.averageRating || "No rating available",
-        }));
+      const uniqueBooks = Array.from(booksMap.values());
+      const sortedBooks = uniqueBooks.sort((a, b) => b.score - a.score);
 
-      return books;
+      const startIndex = (page - 1) * pageSize;
+      const endIndex = startIndex + pageSize;
+      const paginatedBooks = sortedBooks.slice(startIndex, endIndex);
+
+      return {
+        books: paginatedBooks,
+        totalBooks: sortedBooks.length,
+        page,
+        pageSize,
+      };
     } catch (error) {
       throw new HttpException(
         'Error while fetching data from Google Books API',
@@ -55,12 +84,11 @@ export class GoogleBooksService {
     }
   }
 
- async getBookById(id: string): Promise<any> {
+  async getBookById(id: string): Promise<any> {
     try {
       const url = `${this.googleBooksUrl}/${id}?key=${this.apiKey}`;
-
-      console.log(url);
       const response = await axios.get(url);
+
       if (!response.data) {
         throw new HttpException('Book not found', HttpStatus.NOT_FOUND);
       }
@@ -74,6 +102,11 @@ export class GoogleBooksService {
         thumbnail: response.data.volumeInfo.imageLinks?.thumbnail || null,
         description: response.data.volumeInfo.description || 'No description available',
         rating: response.data.volumeInfo.averageRating || 'No rating available',
+        ratingcount: response.data.volumeInfo.ratingsCount || 'No rating count available',
+        score: this.calculateBookScore(
+          response.data.volumeInfo.averageRating || 0,
+          response.data.volumeInfo.ratingsCount || 0,
+        ),
       };
 
       return book;

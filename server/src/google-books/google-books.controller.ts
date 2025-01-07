@@ -10,6 +10,8 @@ export class GoogleBooksController {
     @Query('title') title?: string,
     @Query('author') author?: string,
     @Query('genre') genre?: string,
+    @Query('page') page: number = 1,
+    @Query('pageSize') pageSize: number = 10
   ) {
     if (!title && !author && !genre) {
       throw new HttpException(
@@ -19,7 +21,7 @@ export class GoogleBooksController {
     }
 
     try {
-      return await this.googleBooksService.searchBooks(title, author, genre);
+      return await this.googleBooksService.searchBooks(title, author, genre, page, pageSize);
     } catch (error) {
       throw new HttpException(
         'Error while fetching book details',
