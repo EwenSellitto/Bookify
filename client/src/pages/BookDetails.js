@@ -1,17 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./BookDetails.css";
 
-function BookDetails({ books }) {
+function BookDetails() {
   const { id } = useParams(); // Get the dynamic id from the route
   const navigate = useNavigate();
   const placeholderImage = "https://via.placeholder.com/150";
 
-  const book = books.find((b, index) => index.toString() === id);
+  const [book, setBook] = useState({
+    title: "",
+    authors: [],
+    coverImage: "",
+    genres: [],
+    description: "",
+  });
+  const [resquestFailed, setResquestFailed] = useState(false);
 
-  if (!book) {
-    return <div>Book not found!</div>;
-  }
+  useEffect(() => {
+    const fetchBook = async () => {
+      const url = "http://localhost:5000/google-books/book?id=" + id;
+
+      try {
+        const res = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((response) => response.json());
+
+        console.log(res);
+
+        res.coverImage = res.thumbnail;
+        delete res.thumbnail;
+        setBook(res);
+      } catch (error) {
+        console.log(error);
+        setResquestFailed(true);
+      }
+    };
+
+    fetchBook();
+  }, []);
 
   return (
     <div className="book-details-page">
@@ -44,7 +73,12 @@ function BookDetails({ books }) {
           />
           <div className="book-info">
             <h1>{book.title}</h1>
-            <h2>By {book.author}</h2>
+            <h2>
+              By{" "}
+              {book.authors.length > 1
+                ? book.authors.join(", ")
+                : book.authors[0]}
+            </h2>
             <div
               className="book-genres"
               style={{ marginTop: "0.2rem", marginBottom: "0.2rem" }}
@@ -55,10 +89,7 @@ function BookDetails({ books }) {
                 </span>
               ))}
             </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed
-              tristique nunc, id dictum ipsum.
-            </p>
+            <p>{book.description}</p>
             <div className="book-actions">
               <button className="btn btn-primary">Buy Now</button>
               <button className="btn btn-outline">Add To List</button>

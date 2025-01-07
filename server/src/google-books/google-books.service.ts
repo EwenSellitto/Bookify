@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 @Injectable()
@@ -48,7 +48,7 @@ export class GoogleBooksService {
               title: item.volumeInfo.title || 'Unknown Title',
               authors: item.volumeInfo.authors || ['Unknown Author'],
               publishedDate: item.volumeInfo.publishedDate || 'Unknown Date',
-              genre: item.volumeInfo.categories || ['Unknown Genre'],
+              genres: item.volumeInfo.categories || ['Unknown Genre'],
               thumbnail: item.volumeInfo.imageLinks?.thumbnail || null,
               description: item.volumeInfo.description || 'No description available',
               rating: item.volumeInfo.averageRating || 0,
@@ -102,7 +102,7 @@ export class GoogleBooksService {
         title: response.data.volumeInfo.title || 'Unknown Title',
         authors: response.data.volumeInfo.authors || ['Unknown Author'],
         publishedDate: response.data.volumeInfo.publishedDate || 'Unknown Date',
-        genre: response.data.volumeInfo.categories || ['Unknown Genre'],
+        genres: response.data.volumeInfo.categories || ['Unknown Genre'],
         thumbnail: response.data.volumeInfo.imageLinks?.thumbnail || null,
         description: response.data.volumeInfo.description || 'No description available',
         rating: response.data.volumeInfo.averageRating || 'No rating available',

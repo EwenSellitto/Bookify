@@ -117,3 +117,8 @@
   background-color: #0e0e0e; /* Black */
   color: white;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+}

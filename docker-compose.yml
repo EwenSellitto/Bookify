@@ -16,4 +16,3 @@ services:
     volumes:
       - ./server:/app:rw # Rechargement automatique en dev
       - /app/node_modules
-      - /app/dist
