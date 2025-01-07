@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./BookDetails.css";
+import NotFound from "./NotFound";
 
 function BookDetails() {
   const { id } = useParams(); // Get the dynamic id from the route
@@ -37,6 +38,18 @@ function BookDetails() {
 
     fetchBook();
   }, []);
+
+  if (
+    book.title == undefined ||
+    book.authors == undefined ||
+    book.genres == undefined
+  ) {
+    return <NotFound />;
+  }
+
+  if (!book.title) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="book-details-page">

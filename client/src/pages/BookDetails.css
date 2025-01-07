@@ -59,7 +59,6 @@
 .book-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   padding-top: 0.3rem;
   padding-bottom: 0.6rem;
   flex: 1;

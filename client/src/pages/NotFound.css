@@ -1,0 +1,35 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #f8f9fa; /* Light gray background */
+  height: 90vh;
+}
+
+.not-found h1 {
+  font-size: 8rem;
+  margin: 0;
+  color: #ff9000; /* Orange */
+}
+
+.not-found p {
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
+
+.not-found button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  color: white;
+  background-color: #ff9000; /* Orange */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.not-found button:hover {
+  background-color: #f57f17; /* Darker orange */
+}

@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import BookDetails from "./pages/BookDetails";
 import Home from "./pages/Home";
 import MyBooks from "./pages/MyBooks";
+import NotFound from "./pages/NotFound";
 import Recommendations from "./pages/Recommendations";
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
           />
           <Route path="/profile" element={<div>Profile</div>} />
           <Route path="/books/:id" element={<BookDetails />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <Footer />
