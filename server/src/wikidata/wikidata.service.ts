@@ -18,6 +18,7 @@ export class WikidataService {
       console.log(response.data); // response.data is the JSON object returned by the Wikidata API
       return response.data;
     } catch (error) {
+      console.error(error);
       throw new HttpException(
         'Error while fetching data from Wikidata API',
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -37,6 +38,7 @@ export class WikidataService {
       const response = await axios.get(this.wikidataUrl, { params });
       return response.data;
     } catch (error) {
+      console.error(error);
       throw new HttpException(
         'Error while fetching entity data from Wikidata API',
         HttpStatus.INTERNAL_SERVER_ERROR,

@@ -1,4 +1,10 @@
-import { Controller, Get, Query, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { WikidataService } from './wikidata.service';
 
 @Controller('wikidata')
@@ -8,7 +14,10 @@ export class WikidataController {
   @Get('search')
   async searchBooks(@Query('query') query: string) {
     if (!query) {
-      throw new HttpException('Query parameter is required', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Query parameter is required',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     return await this.WikidataService.fetchBookDetails(query);

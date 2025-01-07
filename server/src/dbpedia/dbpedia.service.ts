@@ -5,7 +5,11 @@ import axios from 'axios';
 export class DbpediaService {
   private readonly dbpediaUrl = 'https://dbpedia.org/sparql';
 
-  async searchBooks(title?: string, author?: string, genre?: string): Promise<any> {
+  async searchBooks(
+    title?: string,
+    author?: string,
+    genre?: string,
+  ): Promise<any> {
     try {
       const filters = [
         title && `FILTER (regex(?bookLabel, "${title}", "i"))`,
@@ -45,15 +49,27 @@ export class DbpediaService {
 
       const response = await axios.get(this.dbpediaUrl, { params });
 
-      const results = response.data.results.bindings.map((result) => ({
-        bookLabel: result.bookLabel.value,
-        authorLabel: result.authorLabel ? result.authorLabel.value : 'Unknown',
-        releaseDate: result.releaseDate ? result.releaseDate.value : 'Unknown',
-        genreLabel: result.genreLabel ? result.genreLabel.value : 'Unknown',
-      }));
+      const results = response.data.results.bindings.map(
+        (result: {
+          bookLabel: { value: string };
+          authorLabel?: { value: string };
+          releaseDate?: { value: string };
+          genreLabel?: { value: string };
+        }) => ({
+          bookLabel: result.bookLabel.value,
+          authorLabel: result.authorLabel
+            ? result.authorLabel.value
+            : 'Unknown',
+          releaseDate: result.releaseDate
+            ? result.releaseDate.value
+            : 'Unknown',
+          genreLabel: result.genreLabel ? result.genreLabel.value : 'Unknown',
+        }),
+      );
 
       return results;
     } catch (error) {
+      console.error(error);
       throw new HttpException(
         'Error while fetching data from DBpedia',
         HttpStatus.INTERNAL_SERVER_ERROR,

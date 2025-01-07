@@ -1,5 +1,13 @@
 version: "3"
 services:
+  database:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    env_file: ./server/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
   frontend:
     build:
       context: ./client
@@ -12,8 +20,12 @@ services:
       dockerfile: Dockerfile
       target: dev
     ports:
-      - "5000:5000" # Le backend sera accessible sur http://localhost:5000
+      - "5000:5000"
     volumes:
       - ./server:/app:rw # Rechargement automatique en dev
       - /app/node_modules
-      - /app/dist
+    depends_on:
+      - database
+
+volumes:
+  postgres_data:

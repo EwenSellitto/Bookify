@@ -1,9 +1,15 @@
-import { Controller, Get, Query, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { DbpediaService } from './dbpedia.service';
 
 @Controller('dbpedia')
 export class DbpediaController {
-  constructor(private readonly dbpediaService: DbpediaService) {}
+  constructor(private readonly dbpediaService: DbpediaService) { }
 
   @Get('search')
   async searchBooks(
@@ -21,6 +27,7 @@ export class DbpediaController {
     try {
       return await this.dbpediaService.searchBooks(title, author, genre);
     } catch (error) {
+      console.error(error);
       throw new HttpException(
         'Error while fetching book details from DBpedia',
         HttpStatus.INTERNAL_SERVER_ERROR,

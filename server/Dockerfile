@@ -1,26 +1,48 @@
+# =================##
+##  DEVELOPPEMENT  ##
+##=================#
+
 FROM node:20-alpine AS dev
+
+ENV NODE_ENV=development
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm install
+RUN npm install \
+  && npx prisma generate
 
 CMD ["npm", "run", "start:dev"]
+
+# =========##
+##  BUILD  ##
+##=========#
 
 FROM node:20-alpine AS build
 
 COPY . .
 
-RUN npm install --production
+RUN npm ci \
+  && npx prisma generate \
+  && npm run build \
+  && npm prune --omit=dev;
 
-RUN npm run build
+# ==============##
+##  PRODUCTION  ##
+##==============#
 
-FROM build AS production
+FROM node:20-alpine AS production
 
-COPY --from=build /app/dist /app/dist
-COPY --from=build /app/node_modules /app/node_modules
+ENV NODE_ENV=production
+
+USER node
+
+COPY --chown=node:node --from=build /app/dist /app/dist
+COPY --chown=node:node --from=build /app/node_modules /app/node_modules
+COPY --chown=node:node --from=build /app/prisma /app/prisma
+COPY --chown=node:node --from=build /app/package*.json /app/
 
 EXPOSE 5000
 
-CMD ["node", "/app/dist/main.js"]
+CMD ["./entrypoint.sh"]
