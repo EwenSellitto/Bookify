@@ -64,27 +64,12 @@ function App() {
     },
   ];
 
-  const categories = [
-    "Science Fiction",
-    "Human Alien Encounters",
-    "Adventure Stories",
-    "Fantasy Fiction",
-    "Time Travel",
-    "Young Adult Fiction",
-    "Love Stories",
-    "Romance",
-    "Frontier and Pioneer Life",
-    "Historical Fiction",
-    "Dystopias",
-    "Thrillers & Suspense",
-  ];
-
   return (
     <div className="app">
       <Header />
       <div className="main-content">
         <Routes>
-          <Route path="/" element={<Home categories={categories} />} />
+          <Route path="/" element={<Home />} />
           <Route
             path="/my-books"
             element={<MyBooks books={sampleBooks.slice(0, 4)} />}

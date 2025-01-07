@@ -2,16 +2,35 @@ import React, { useEffect, useState } from "react";
 import PopularBook from "../components/PopularBook";
 import "./Home.css";
 
-function Home({ categories }) {
+function Home() {
   const [trendingBooks, setTrendingBooks] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [resquestFailed, setResquestFailed] = useState(false);
 
   useEffect(() => {
-    const fetchTrendingBooks = async () => {
-      const selected =
-        categories[Math.floor(Math.random() * categories.length)];
-      const url = "http://localhost:5000/google-books/search?genre=" + selected;
+    const fetchCategories = async () => {
+      const url = "http://localhost:5000/google-books/genres?count=12";
+
+      try {
+        const res = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((response) => response.json());
+
+        setCategories(res);
+        return res[Math.floor(Math.random() * res.length)];
+      } catch (error) {
+        console.log(error);
+        setResquestFailed(true);
+      }
+    };
+
+    const fetchTrendingBooks = async (selectedCategory) => {
+      const url =
+        "http://localhost:5000/google-books/search?genre=" + selectedCategory;
 
       try {
         const data = await fetch(url, {
@@ -22,9 +41,8 @@ function Home({ categories }) {
         }).then((response) => response.json());
         var res = parseTrendingBooks(data);
 
-        console.log(res);
         setTrendingBooks(res);
-        setSelectedCategory(selected);
+        setSelectedCategory(selectedCategory);
 
         if (res.length === 0) {
           setResquestFailed(true);
@@ -35,7 +53,12 @@ function Home({ categories }) {
       }
     };
 
-    fetchTrendingBooks();
+    const fetchAll = async () => {
+      var selectedCategory = await fetchCategories();
+      await fetchTrendingBooks(selectedCategory);
+    };
+
+    fetchAll();
   }, []);
 
   function parseTrendingBooks(data) {
