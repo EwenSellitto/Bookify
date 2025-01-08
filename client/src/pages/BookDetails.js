@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BookSvg from "../assets/book.svg";
+import LoadingSpinner from "../components/LoadingSpinner";
 import "./BookDetails.css";
 import NotFound from "./NotFound";
 
@@ -48,7 +49,7 @@ function BookDetails() {
   }
 
   if (!book.title) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   return (

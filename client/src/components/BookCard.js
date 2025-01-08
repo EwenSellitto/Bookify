@@ -40,7 +40,16 @@ function BookCard({ book, index }) {
         </div>
 
         <div className="book-actions">
-          <button className="btn btn-primary">Buy Now</button>
+          {book.buylink && (
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                window.open(book.buylink, "_blank");
+              }}
+            >
+              Buy Now
+            </button>
+          )}
           <button className="btn btn-outline">Add To List</button>
         </div>
       </div>

@@ -57,6 +57,7 @@ function SearchPage() {
       genres: book.genres,
       rating: book.rating,
       ratingcount: book.ratingcount,
+      buylink: book.buylink,
       score: book.score,
     }));
   }
