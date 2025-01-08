@@ -18,9 +18,16 @@ function Home() {
           headers: {
             "Content-Type": "application/json",
           },
-        }).then((response) => response.json());
+        }).then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch categories");
+          }
+          return response.json();
+        });
 
+        console.log("before");
         setCategories(res);
+        console.log("after");
         return res[Math.floor(Math.random() * res.length)];
       } catch (error) {
         console.log(error);
@@ -38,7 +45,12 @@ function Home() {
           headers: {
             "Content-Type": "application/json",
           },
-        }).then((response) => response.json());
+        }).then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch trending books");
+          }
+          return response.json();
+        });
         var res = parseTrendingBooks(data);
 
         setTrendingBooks(res);
