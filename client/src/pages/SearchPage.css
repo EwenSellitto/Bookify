@@ -1,0 +1,69 @@
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+
+.results {
+  padding: 20px;
+}
+
+.results-header {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.results-header h2 {
+  color: #333;
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 43px;
+  margin: 0 0 12px 0;
+  font-family: Barlow, Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+.results-header p {
+  color: #4e4e4e;
+  font-size: 1.15rem;
+  font-weight: 400;
+  margin: 0 0 24px 0;
+  font-family: Barlow, Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.pagination button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #ff9000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+  background-color: #ddd;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #f57f17;
+}
+
+.pagination span {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}

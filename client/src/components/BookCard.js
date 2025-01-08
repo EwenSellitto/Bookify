@@ -9,7 +9,7 @@ function BookCard({ book, index }) {
     <div
       key={index}
       className="book-card"
-      onClick={() => navigate(`/books/${index}`)}
+      onClick={() => navigate(`/books/${book.id}`)}
     >
       <div className="book-card-cover">
         {book.thumbnail ? (

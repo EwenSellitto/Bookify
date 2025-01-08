@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import MyBooks from "./pages/MyBooks";
 import NotFound from "./pages/NotFound";
 import Recommendations from "./pages/Recommendations";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   const sampleBooks = [
@@ -81,7 +82,11 @@ function App() {
           />
           <Route path="/profile" element={<div>Profile</div>} />
           <Route path="/books/:id" element={<BookDetails />} />
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="/search/:type/:query/:page/:pageSize"
+            element={<SearchPage />}
+          />
+          <Route element={<NotFound />} />
         </Routes>
       </div>
       <Footer />
