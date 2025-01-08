@@ -15,7 +15,7 @@ export class WikidataService {
       };
 
       const response = await axios.get(this.wikidataUrl, { params });
-      console.log(response.data); // response.data is the JSON object returned by the Wikidata API
+
       return response.data;
     } catch (error) {
       console.error(error);
