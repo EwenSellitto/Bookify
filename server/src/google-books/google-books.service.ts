@@ -50,9 +50,13 @@ export class GoogleBooksService {
   }
 
   capitalizeGenre(genre: string): string {
-    if (!genre) return "no genre";
-    return genre.charAt(0).toUpperCase() + genre.slice(1).toLowerCase();
+    if (!genre) return "No Genre";
+    return genre
+      .split(" ")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
   }
+
 
   async searchBooks(
     title?: string,
