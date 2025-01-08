@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BookCard from "../components/BookCard";
 import LoadingSpinner from "../components/LoadingSpinner";
+import NoBooksFound from "../components/NoBooksFound";
 import NotFound from "./NotFound";
 import "./SearchPage.css";
 
@@ -107,16 +108,14 @@ function SearchPage() {
         />
         <button onClick={handleSearch}>Search</button>
       </div>
-      <div className="results-header">
-        <h2>Results for "{query}"</h2>
-      </div>
       {books.length === 0 && !requestFailed ? (
         <LoadingSpinner />
+      ) : books.length === 0 || requestFailed ? (
+        <NoBooksFound />
       ) : (
         <div>
           <Pagination />
           <div className="book-grid">
-            {requestFailed && <p>No books found</p>}
             {books.map((book, index) => (
               <BookCard key={index} book={book} />
             ))}

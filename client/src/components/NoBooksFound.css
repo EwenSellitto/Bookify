@@ -1,0 +1,32 @@
+.no-books-found {
+  text-align: center;
+  padding: 80px;
+  color: #4e4e4e;
+}
+
+.no-books-found h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.no-books-found p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.no-books-found button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #ff9000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.no-books-found button:hover {
+  background-color: #f57f17;
+}

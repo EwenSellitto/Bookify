@@ -10,30 +10,6 @@
   padding: 20px;
 }
 
-.results-header {
-  margin-top: 3rem;
-}
-
-.results-header h2 {
-  color: #333;
-  font-size: 1.9rem;
-  font-weight: 600;
-  line-height: 43px;
-  margin: 0 0 12px 0;
-  font-family: Barlow, Helvetica, Arial, sans-serif;
-  text-align: center;
-  overflow-wrap: anywhere;
-}
-
-.results-header p {
-  color: #4e4e4e;
-  font-size: 1.15rem;
-  font-weight: 400;
-  margin: 0 0 24px 0;
-  font-family: Barlow, Helvetica, Arial, sans-serif;
-  text-align: center;
-}
-
 .pagination {
   display: flex;
   justify-content: center;
@@ -79,6 +55,7 @@
   overflow: hidden;
   align-self: center;
   margin-top: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .search-page-type-dropdown {
