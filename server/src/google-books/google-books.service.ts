@@ -49,6 +49,11 @@ export class GoogleBooksService {
     return this.genres.sort(() => 0.5 - Math.random()).slice(0, count);
   }
 
+  capitalizeGenre(genre: string): string {
+    if (!genre) return "no genre";
+    return genre.charAt(0).toUpperCase() + genre.slice(1).toLowerCase();
+  }
+
   async searchBooks(
     title?: string,
     author?: string,
@@ -61,7 +66,10 @@ export class GoogleBooksService {
 
       if (title) queryParams.push(`intitle:${title}`);
       if (author) queryParams.push(`inauthor:"${author}"`);
-      if (genre) queryParams.push(`subject:"${genre}"`);
+      if (genre) {
+        genre = this.capitalizeGenre(genre);
+        queryParams.push(`subject:"${genre}"`);
+      }
 
       const fullQuery = queryParams.join('+');
       const maxResults = 40;
