@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import LoadingSpinner from "../components/LoadingSpinner";
 import PopularBook from "../components/PopularBook";
 import "./Home.css";
 
@@ -25,9 +26,7 @@ function Home() {
           return response.json();
         });
 
-        console.log("before");
         setCategories(res);
-        console.log("after");
         return res[Math.floor(Math.random() * res.length)];
       } catch (error) {
         console.log(error);
@@ -81,7 +80,7 @@ function Home() {
         title: book.title,
         authors: book.authors,
         thumbnail: book.thumbnail,
-        genres: book.genre,
+        genres: book.genres,
       });
     });
     return books;
@@ -110,7 +109,7 @@ function Home() {
               <PopularBook book={book} index={index} />
             ))
           ) : (
-            <div className="loading">Loading...</div>
+            <LoadingSpinner />
           )}
         </div>
       </div>

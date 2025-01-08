@@ -103,6 +103,7 @@ export class GoogleBooksService {
                 item.volumeInfo.description || 'No description available',
               rating: item.volumeInfo.averageRating || 0,
               ratingcount: item.volumeInfo.ratingsCount || 0,
+              buylink: item.saleInfo.buyLink || null,
               score: this.calculateBookScore(
                 item.volumeInfo.averageRating || 0,
                 item.volumeInfo.ratingsCount || 0,
@@ -158,7 +159,7 @@ export class GoogleBooksService {
         rating: response.data.volumeInfo.averageRating || 'No rating available',
         ratingcount:
           response.data.volumeInfo.ratingsCount || 'No rating count available',
-        buylink: response.data.saleInfo.buyLink || 'No buy link available',
+        buylink: response.data.saleInfo.buyLink || null,
         score: this.calculateBookScore(
           response.data.volumeInfo.averageRating || 0,
           response.data.volumeInfo.ratingsCount || 0,

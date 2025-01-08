@@ -1,25 +1,28 @@
 import { useNavigate } from "react-router-dom";
+import BookSvg from "../assets/book.svg";
 import "./BookCard.css";
 
 function BookCard({ book, index }) {
-  const placeholderImage = "https://via.placeholder.com/150";
   const navigate = useNavigate();
 
   return (
     <div
       key={index}
       className="book-card"
-      onClick={() => navigate(`/books/${index}`)}
+      onClick={() => navigate(`/books/${book.id}`)}
     >
       <div className="book-card-cover">
-        <img
-          src={book.thumbnail}
-          alt={book.title}
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = placeholderImage;
-          }}
-        />
+        {book.thumbnail ? (
+          <img
+            className="thumbnail-img"
+            src={book.thumbnail}
+            onError={(e) => (e.target.onerror = null)}
+          />
+        ) : (
+          <div className="no-thumbnail-img">
+            <img src={BookSvg} width={25} height={25} />
+          </div>
+        )}
       </div>
 
       <div>
@@ -37,7 +40,16 @@ function BookCard({ book, index }) {
         </div>
 
         <div className="book-actions">
-          <button className="btn btn-primary">Buy Now</button>
+          {book.buylink && (
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                window.open(book.buylink, "_blank");
+              }}
+            >
+              Buy Now
+            </button>
+          )}
           <button className="btn btn-outline">Add To List</button>
         </div>
       </div>
