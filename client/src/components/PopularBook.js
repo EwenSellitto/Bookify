@@ -9,7 +9,7 @@ function PopularBook({ book, index }) {
   return (
     <div
       key={index}
-      className="trending-book-card"
+      className="popular-book-card"
       onClick={() => navigate(`/books/${book.id}`)}
     >
       {book.thumbnail ? (
@@ -23,7 +23,7 @@ function PopularBook({ book, index }) {
           <img src={BookSvg} width={25} height={25} />
         </div>
       )}
-      <div className="trending-book-info">
+      <div className="popular-book-info">
         <h3>{book.title}</h3>
         <p>
           {book.authors.length > 1 ? book.authors.join(", ") : book.authors[0]}

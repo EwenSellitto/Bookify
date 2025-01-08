@@ -11,6 +11,8 @@ function SearchPage() {
 
   const [books, setBooks] = useState([]);
   const [totalBooks, setTotalBooks] = useState(0);
+  const [searchType, setSearchType] = useState(type);
+  const [searchQuery, setSearchQuery] = useState(query);
   const [requestFailed, setRequestFailed] = useState(false);
 
   useEffect(() => {
@@ -62,6 +64,13 @@ function SearchPage() {
     }));
   }
 
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/search/${searchType}/${encodeURIComponent(searchQuery)}/1/10`);
+      navigate(0);
+    }
+  };
+
   function isValidPage() {
     if (type !== "title" && type !== "author" && type !== "genre") return false;
     if (isNaN(page) || isNaN(pageSize)) return false;
@@ -75,6 +84,29 @@ function SearchPage() {
 
   return (
     <section className="results">
+      <div className="search-page-bar-large">
+        <select
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          className="search-page-type-dropdown"
+        >
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+          <option value="genre">Genre</option>
+        </select>
+        <input
+          type="text"
+          placeholder={`Search by ${searchType}...`}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyUp={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
       <div className="results-header">
         <h2>Results for "{query}"</h2>
       </div>

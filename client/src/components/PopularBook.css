@@ -1,4 +1,4 @@
-.trending-book-card {
+.popular-book-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +10,7 @@
   cursor: pointer;
 }
 
-.trending-book-card:hover {
+.popular-book-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -35,14 +35,14 @@
   margin-bottom: 10px;
 }
 
-.trending-book-info h3 {
+.popular-book-info h3 {
   font-size: 1rem;
   color: #333;
   margin-bottom: 5px;
   text-align: center;
 }
 
-.trending-book-info p {
+.popular-book-info p {
   font-size: 0.9rem;
   color: #777;
   text-align: center;

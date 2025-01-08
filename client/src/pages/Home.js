@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import PopularBook from "../components/PopularBook";
 import "./Home.css";
 
 function Home() {
-  const [trendingBooks, setTrendingBooks] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [resquestFailed, setResquestFailed] = useState(false);
+  const [popularBooks, setPopularBooks] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const [searchType, setSearchType] = useState("title");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [requestFailed, setRequestFailed] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchGenres = async () => {
       const url = "http://localhost:5000/google-books/genres?count=12";
 
       try {
@@ -21,22 +26,24 @@ function Home() {
           },
         }).then((response) => {
           if (!response.ok) {
-            throw new Error("Failed to fetch categories");
+            throw new Error("Failed to fetch genres");
           }
           return response.json();
         });
 
-        setCategories(res);
-        return res[Math.floor(Math.random() * res.length)];
+        const selected = res[Math.floor(Math.random() * res.length)];
+        setGenres(res);
+        setSelectedGenre(selected);
+
+        return selected;
       } catch (error) {
         console.log(error);
-        setResquestFailed(true);
+        setRequestFailed(true);
       }
     };
 
-    const fetchTrendingBooks = async (selectedCategory) => {
-      const url =
-        "http://localhost:5000/google-books/search?genre=" + selectedCategory;
+    const fetchPopularBooks = async (selected) => {
+      const url = "http://localhost:5000/google-books/search?genre=" + selected;
 
       try {
         const data = await fetch(url, {
@@ -46,33 +53,32 @@ function Home() {
           },
         }).then((response) => {
           if (!response.ok) {
-            throw new Error("Failed to fetch trending books");
+            throw new Error("Failed to fetch popular books");
           }
           return response.json();
         });
-        var res = parseTrendingBooks(data);
+        const res = parsePopularBooks(data);
 
-        setTrendingBooks(res);
-        setSelectedCategory(selectedCategory);
+        setPopularBooks(res);
 
         if (res.length === 0) {
-          setResquestFailed(true);
+          setRequestFailed(true);
         }
       } catch (error) {
         console.log(error);
-        setResquestFailed(true);
+        setRequestFailed(true);
       }
     };
 
     const fetchAll = async () => {
-      var selectedCategory = await fetchCategories();
-      await fetchTrendingBooks(selectedCategory);
+      const selected = await fetchGenres();
+      await fetchPopularBooks(selected);
     };
 
     fetchAll();
   }, []);
 
-  function parseTrendingBooks(data) {
+  function parsePopularBooks(data) {
     var books = [];
     data.books.splice(0, 6).forEach((book) => {
       books.push({
@@ -86,26 +92,48 @@ function Home() {
     return books;
   }
 
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/search/${searchType}/${encodeURIComponent(searchQuery)}/1/10`);
+    }
+  };
+
   return (
     <div className="home">
       <div className="search-section">
         <h1>Find Your Next Favorite Book</h1>
         <div className="search-bar-large">
+          <select
+            value={searchType}
+            onChange={(e) => setSearchType(e.target.value)}
+            className="search-type-dropdown"
+          >
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="genre">Genre</option>
+          </select>
           <input
             type="text"
-            placeholder="Search for books, authors, or genres..."
+            placeholder={`Search by ${searchType}...`}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyUp={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
           />
-          <button>Search</button>
+          <button onClick={handleSearch}>Search</button>
         </div>
       </div>
 
-      <div className="trending-section">
-        <h2>Popular {selectedCategory} Books</h2>
-        <div className="trending-books">
-          {resquestFailed ? (
+      <div className="popular-section">
+        <h2>Popular {selectedGenre} Books</h2>
+        <div className="popular-books">
+          {requestFailed ? (
             <div className="loading">No books found</div>
-          ) : trendingBooks.length > 0 ? (
-            trendingBooks.map((book, index) => (
+          ) : popularBooks.length > 0 ? (
+            popularBooks.map((book, index) => (
               <PopularBook book={book} index={index} />
             ))
           ) : (
@@ -114,12 +142,18 @@ function Home() {
         </div>
       </div>
 
-      <div className="categories-section">
-        <h2>Explore Categories</h2>
-        <div className="categories">
-          {categories.map((category, index) => (
-            <button key={index} className="category-button">
-              {category}
+      <div className="genres-section">
+        <h2>Explore Genres</h2>
+        <div className="genres">
+          {genres.map((genre, index) => (
+            <button
+              key={index}
+              className="genre-button"
+              onClick={() => {
+                navigate(`/search/genre/${genre}/1/10`);
+              }}
+            >
+              {genre}
             </button>
           ))}
         </div>
