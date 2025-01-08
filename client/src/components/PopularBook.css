@@ -15,11 +15,22 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.trending-book-card img {
-  width: 100%;
-  max-width: 100px;
+.thumbnail-img {
   height: 150px;
-  object-fit: cover;
+  object-fit: contain;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #f3f2f2;
+  min-width: 100px;
+}
+
+.no-thumbnail {
+  height: 150px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3f2f2;
   border-radius: 5px;
   margin-bottom: 10px;
 }

@@ -25,9 +25,7 @@ function Home() {
           return response.json();
         });
 
-        console.log("before");
         setCategories(res);
-        console.log("after");
         return res[Math.floor(Math.random() * res.length)];
       } catch (error) {
         console.log(error);

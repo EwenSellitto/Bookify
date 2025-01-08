@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import BookSvg from "../assets/book.svg";
 import "./BookDetails.css";
 import NotFound from "./NotFound";
 
 function BookDetails() {
   const { id } = useParams(); // Get the dynamic id from the route
   const navigate = useNavigate();
-  const placeholderImage = "https://via.placeholder.com/150";
 
   const [book, setBook] = useState({
     title: "",
@@ -72,14 +72,17 @@ function BookDetails() {
       </button>
       <div className="book-details">
         <div className="book-details-content">
-          <img
-            className="book-cover"
-            src={book.thumbnail}
-            alt={book.title}
-            onError={(e) => {
-              e.target.src = placeholderImage;
-            }}
-          />
+          {book.thumbnail ? (
+            <img
+              className="book-cover"
+              src={book.thumbnail}
+              onError={(e) => (e.target.onerror = null)}
+            />
+          ) : (
+            <div className="no-book-cover">
+              <img src={BookSvg} width={50} height={50} />
+            </div>
+          )}
           <div className="book-info">
             <h1>{book.title}</h1>
             <h2>

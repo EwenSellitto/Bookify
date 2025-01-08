@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import BookSvg from "../assets/book.svg";
 import "./BookCard.css";
 
 function BookCard({ book, index }) {
-  const placeholderImage = "https://via.placeholder.com/150";
   const navigate = useNavigate();
 
   return (
@@ -12,14 +12,17 @@ function BookCard({ book, index }) {
       onClick={() => navigate(`/books/${index}`)}
     >
       <div className="book-card-cover">
-        <img
-          src={book.thumbnail}
-          alt={book.title}
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = placeholderImage;
-          }}
-        />
+        {book.thumbnail ? (
+          <img
+            className="thumbnail-img"
+            src={book.thumbnail}
+            onError={(e) => (e.target.onerror = null)}
+          />
+        ) : (
+          <div className="no-thumbnail-img">
+            <img src={BookSvg} width={25} height={25} />
+          </div>
+        )}
       </div>
 
       <div>

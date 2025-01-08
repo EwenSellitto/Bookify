@@ -80,6 +80,7 @@
 }
 
 .categories-section {
+  width: -webkit-fill-available;
   margin-top: 70px;
   padding: 50px 100px 80px 100px;
   background-color: #f7f7f7; /* Light gray */
