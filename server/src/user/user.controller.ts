@@ -57,7 +57,7 @@ export class UserController {
     return { username: user.username };
   }
 
-  @Post('me/books')
+  @Post('me/book')
   async addBook(@GetUser() user: User, @Body() body: { cUnLivreTqtId: string }) {
     const { cUnLivreTqtId } = body;
     if (!cUnLivreTqtId) {

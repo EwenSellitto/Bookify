@@ -33,6 +33,10 @@ function BookDetails() {
 
         setBook(res);
       } catch (error) {
+        if (error.message === "Missing credentials") {
+          navigate("/login");
+          return;
+        }
         console.log(error);
         setResquestFailed(true);
       }
@@ -40,6 +44,26 @@ function BookDetails() {
 
     fetchBook();
   }, []);
+
+  const addBookToList = async () => {
+    const url = "user/me/book";
+
+    try {
+      await fetchServer(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cUnLivreTqtId: book.id }),
+      });
+    } catch (error) {
+      if (error.message === "Missing credentials") {
+        navigate("/login");
+        return;
+      }
+      console.log(error);
+    }
+  };
 
   if (
     book.title === undefined ||
@@ -114,7 +138,9 @@ function BookDetails() {
                   Buy Now
                 </button>
               )}
-              <button className="btn btn-outline">Add To List</button>
+              <button className="btn btn-outline" onClick={addBookToList}>
+                Add To List
+              </button>
             </div>
             <p>{book.description}</p>
           </div>

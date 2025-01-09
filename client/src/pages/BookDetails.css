@@ -127,3 +127,13 @@
 .btn-outline:hover {
   background-color: #f3f4f6; /* Light gray */
 }
+
+@media (max-width: 768px) {
+  .book-cover {
+    width: 100%;
+  }
+
+  .no-book-cover {
+    width: 100%;
+  }
+}

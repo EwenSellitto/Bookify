@@ -9,8 +9,8 @@ import Login from "./pages/Login";
 import MyBooks from "./pages/MyBooks";
 import NotFound from "./pages/NotFound";
 import Recommendations from "./pages/Recommendations";
-import { AuthProvider } from "./providers/authContext";
 import SearchPage from "./pages/SearchPage";
+import { AuthProvider } from "./providers/authContext";
 
 function App() {
   const sampleBooks = [
@@ -75,10 +75,7 @@ function App() {
         <div className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/my-books"
-              element={<MyBooks books={sampleBooks.slice(0, 4)} />}
-            />
+            <Route path="/my-books" element={<MyBooks />} />
             <Route
               path="/recommendations"
               element={<Recommendations books={sampleBooks} />}
