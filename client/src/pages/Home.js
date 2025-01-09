@@ -24,11 +24,6 @@ function Home() {
           headers: {
             "Content-Type": "application/json",
           },
-        }).then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch genres");
-          }
-          return response.json();
         });
 
         const selected = res[Math.floor(Math.random() * res.length)];
@@ -47,19 +42,13 @@ function Home() {
     };
 
     const fetchTrendingBooks = async (selectedCategory) => {
-      const url =
-        "google-books/search?genre=" + selectedCategory;
+      const url = "google-books/search?genre=" + selectedCategory;
       try {
         const data = await fetchServer(url, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-        }).then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch popular books");
-          }
-          return response.json();
         });
         const res = parsePopularBooks(data);
 

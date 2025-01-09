@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import BookCard from "../components/BookCard";
 import LoadingSpinner from "../components/LoadingSpinner";
 import NoBooksFound from "../components/NoBooksFound";
+import fetchServer from "../utils/fetchServer";
 import NotFound from "./NotFound";
 import "./SearchPage.css";
 
@@ -18,19 +19,14 @@ function SearchPage() {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const url = `http://localhost:5000/google-books/search?${type}=${query}&page=${page}&pageSize=${pageSize}`;
+      const url = `google-books/search?${type}=${query}&page=${page}&pageSize=${pageSize}`;
 
       try {
-        const data = await fetch(url, {
+        const data = await fetchServer(url, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-        }).then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch books");
-          }
-          return response.json();
         });
 
         const res = parseBooks(data);
@@ -41,6 +37,10 @@ function SearchPage() {
           setRequestFailed(true);
         }
       } catch (error) {
+        if (error.message === "Missing credentials") {
+          navigate("/login");
+          return;
+        }
         console.log(error);
         setRequestFailed(true);
       }

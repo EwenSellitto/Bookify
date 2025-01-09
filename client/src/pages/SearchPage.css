@@ -68,10 +68,6 @@
   padding: 15px;
 }
 
-.search-page-type-dropdown:focus {
-  border-color: #ff9000;
-}
-
 .search-page-bar-large input {
   flex: 1;
   padding: 18px;
@@ -100,4 +96,10 @@
 
 .search-page-bar-large button:hover {
   background-color: #f57f17; /* Darker orange */
+}
+
+@media screen and (max-width: 868px) {
+  .search-page-bar-large {
+    width: auto;
+  }
 }

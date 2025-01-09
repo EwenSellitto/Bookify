@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import fetchServer from "../utils/fetchServer";
 import BookSvg from "../assets/book.svg";
 import LoadingSpinner from "../components/LoadingSpinner";
+import fetchServer from "../utils/fetchServer";
 import "./BookDetails.css";
 import NotFound from "./NotFound";
 
@@ -29,7 +29,7 @@ function BookDetails() {
           headers: {
             "Content-Type": "application/json",
           },
-        }).then((response) => response.json());
+        });
 
         setBook(res);
       } catch (error) {

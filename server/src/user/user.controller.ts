@@ -5,10 +5,13 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   @Get('me')
   async myProfile(@GetUser() user: User) {
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
     const current_user = await this.prisma.user.findUnique({
       where: {
         username: user.username,
@@ -21,14 +24,14 @@ export class UserController {
         },
       },
     });
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
     return { ...current_user, password: undefined };
   }
 
   @Get('me/username')
   async myUsername(@GetUser() user: User) {
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
     return { username: user.username };
   }
 }
