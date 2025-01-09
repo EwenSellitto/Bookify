@@ -22,7 +22,6 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/my-books" element={<MyBooks />} />
             <Route path="/recommendations" element={<Recommendations />} />
-            <Route path="/profile" element={<div>Profile</div>} />
             <Route path="/books/:id" element={<BookDetails />} />
             <Route path="/login" element={<Login />} />
             <Route

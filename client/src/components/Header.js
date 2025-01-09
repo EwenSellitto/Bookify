@@ -1,11 +1,31 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../providers/authContext";
+import LogoutSvg from "./../assets/logout.svg";
 import ProfileIcon from "./../assets/profile.svg";
 import "./Header.css";
 
 function Header() {
+  const auth = useAuth();
+  const navigate = useNavigate();
   const location = useLocation(); // Get the current path
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for menu toggle
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu toggle
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false); // State for profile menu toggle
+
+  const handleLogout = () => {
+    auth.logout();
+    setIsProfileMenuOpen(false);
+    navigate("/login");
+  };
+
+  if (!auth.user) {
+    return (
+      <header className="header">
+        <div className="logo">BookFinder</div>
+      </header>
+    );
+  }
 
   return (
     <div>
@@ -50,15 +70,25 @@ function Header() {
           BookFinder
         </div>
 
-        <button
-          className="profile"
-          onClick={() => {
-            window.location.href = "/profile";
-          }}
-        >
-          <img src={ProfileIcon} alt="Profile" className="profile-icon" />
-        </button>
+        <div className="profile-menu-container">
+          <button
+            className="profile"
+            onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+          >
+            <img src={ProfileIcon} alt="Profile" className="profile-icon" />
+          </button>
+
+          {isProfileMenuOpen && (
+            <div className="profile-dropdown">
+              <button className="dropdown-item" onClick={handleLogout}>
+                Logout
+              </button>
+              <img src={LogoutSvg} className="logout-icon" />
+            </div>
+          )}
+        </div>
       </header>
+
       <header className="mobile-header header">
         <div className="header-top">
           <button
@@ -114,14 +144,23 @@ function Header() {
           </ul>
         </nav>
 
-        <button
-          className="profile"
-          onClick={() => {
-            window.location.href = "/profile";
-          }}
-        >
-          <img src={ProfileIcon} alt="Profile" className="profile-icon" />
-        </button>
+        <div className="profile-menu-container">
+          <button
+            className="profile"
+            onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+          >
+            <img src={ProfileIcon} alt="Profile" className="profile-icon" />
+          </button>
+
+          {isProfileMenuOpen && (
+            <div className="profile-dropdown">
+              <button className="dropdown-item" onClick={handleLogout}>
+                Logout
+              </button>
+              <img src={LogoutSvg} className="logout-icon" />
+            </div>
+          )}
+        </div>
       </header>
     </div>
   );

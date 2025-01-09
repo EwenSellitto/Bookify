@@ -5,7 +5,7 @@ import axios from 'axios';
 export class GoogleBooksService {
   private readonly googleBooksUrl =
     'https://www.googleapis.com/books/v1/volumes';
-  private readonly apiKey = 'AIzaSyDTbOl6J9TTT3wzjAHuj0iibcBkcJfbapk';
+  private readonly apiKey = 'AIzaSyAjF4nHxkSNwDlutM2TVX8VGTH3HNGT5tc';
   private readonly genres: string[] = [
     'Fiction',
     'Science',
