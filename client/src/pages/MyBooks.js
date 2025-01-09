@@ -56,6 +56,28 @@ function MyBooks() {
     return books;
   }
 
+  const deleteBook = async (id) => {
+    const url = `user/me/books/${id}`;
+
+    try {
+      await fetchServer(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const newBooks = books.filter((book) => book.id !== id);
+      setBooks(newBooks);
+    } catch (error) {
+      if (error.message === "Missing credentials") {
+        navigate("/login");
+        return;
+      }
+      console.log(error);
+    }
+  };
+
   return (
     <div className="my-books-page">
       <h1>My Books</h1>
@@ -64,7 +86,7 @@ function MyBooks() {
       ) : books.length > 0 ? (
         <div className="books-grid">
           {books.map((book, index) => (
-            <PopularBook book={book} index={index} />
+            <PopularBook book={book} index={index} onDelete={deleteBook} />
           ))}
         </div>
       ) : (

@@ -36,7 +36,6 @@ function Login() {
   };
 
   useEffect(() => {
-    console.log(auth.user);
     if (auth.user) {
       navigate("/");
     }
