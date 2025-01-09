@@ -5,5 +5,6 @@ import { GoogleBooksController } from './google-books.controller';
 @Module({
   controllers: [GoogleBooksController],
   providers: [GoogleBooksService],
+  exports: [GoogleBooksService],
 })
 export class GoogleBooksModule {}

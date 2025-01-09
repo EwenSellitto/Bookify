@@ -2,16 +2,22 @@ import { Controller, Get, Post, Delete, Body, Param, NotFoundException, BadReque
 import { User } from '@prisma/client';
 import { GetUser } from 'src/auth/decorator/getUser.decorator';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { GoogleBooksService } from 'src/google-books/google-books.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly googleBooksService: GoogleBooksService,
+  ) {}
+
 
   @Get('me')
   async myProfile(@GetUser() user: User) {
     if (!user) {
       throw new NotFoundException('User not found');
     }
+
     const current_user = await this.prisma.user.findUnique({
       where: {
         username: user.username,
@@ -24,8 +30,24 @@ export class UserController {
         },
       },
     });
-    return { ...current_user, password: undefined };
+
+    if (!current_user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const bookIds = current_user.BookUserLink.map((link) => link.book.cUnLivreTqtId);
+
+    const books = await Promise.all(
+      bookIds.map((id) => this.googleBooksService.getBookById(id))
+    );
+
+    return {
+      // ...current_user,
+      password: undefined,
+      books,
+    };
   }
+
 
   @Get('me/username')
   async myUsername(@GetUser() user: User) {
