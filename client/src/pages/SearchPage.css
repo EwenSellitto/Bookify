@@ -98,7 +98,7 @@
   background-color: #f57f17; /* Darker orange */
 }
 
-@media screen and (max-width: 868px) {
+@media screen and (max-width: 620px) {
   .search-page-bar-large {
     width: auto;
   }

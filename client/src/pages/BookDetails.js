@@ -33,6 +33,10 @@ function BookDetails() {
 
         setBook(res);
       } catch (error) {
+        if (error.message === "Missing credentials") {
+          navigate("/login");
+          return;
+        }
         console.log(error);
         setResquestFailed(true);
       }
