@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Body, Param, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param, NotFoundException, BadRequestException, InternalServerErrorException } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { GetUser } from 'src/auth/decorator/getUser.decorator';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -48,12 +48,12 @@ export class UserController {
     };
   }
 
-
   @Get('me/username')
   async myUsername(@GetUser() user: User) {
     if (!user) {
       throw new NotFoundException('User not found');
     }
+
     return { username: user.username };
   }
 
@@ -103,4 +103,60 @@ export class UserController {
 
     return { message: 'Book removed successfully' };
   }
+
+  @Get('me/recommendation')
+  async getRecommendation(@GetUser() user: User) {
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const profile = await this.myProfile(user);
+    const books = profile.books;
+    const authors = books
+      .map((book) => book?.authors)
+      .flat()
+      .filter(Boolean);
+    let genres = books
+      .map((book) => book?.genres)
+      .flat()
+      .filter(Boolean);
+
+    if (authors.length === 0 && genres.length === 0) {
+      throw new InternalServerErrorException('No authors or genres found for recommendation');
+    }
+
+    genres = Array.from(new Set(genres));
+
+    let booksResponse = null;
+    let selectionType: 'author' | 'genre';
+    let searchParam: { author?: string; genre?: string };
+
+    while (!booksResponse) {
+      selectionType = Math.random() < 0.2 ? 'author' : 'genre';
+
+      if (selectionType === 'author' && authors.length > 0) {
+        const randomAuthor = authors[Math.floor(Math.random() * authors.length)];
+        searchParam = { author: randomAuthor };
+      } else if (selectionType === 'genre' && genres.length > 0) {
+        const genreComponents = genres
+          .map((genre) => genre.split('/').map((part) => part.trim()))
+          .flat();
+
+        const uniqueGenreComponents = Array.from(new Set(genreComponents));
+        const randomGenre = uniqueGenreComponents[Math.floor(Math.random() * uniqueGenreComponents.length)];
+        searchParam = { genre: randomGenre };
+      } else {
+        throw new InternalServerErrorException('No valid author or genre to select');
+      }
+
+      booksResponse = await this.googleBooksService.getBooksRecommendation(searchParam);
+
+      if (!booksResponse) {
+        continue;
+      }
+    }
+
+    return booksResponse;
+  }
+
 }

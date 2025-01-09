@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 import axios from 'axios';
 
 @Injectable()
@@ -177,6 +177,26 @@ export class GoogleBooksService {
         'Error while fetching book details',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
+    }
+  }
+
+  async getBooksRecommendation(searchParam: { author?: string; genre?: string }) {
+    try {
+      const booksResponse = await this.searchBooks(
+        undefined,
+        searchParam.author,
+        searchParam.genre,
+        1,
+        10,
+      );
+
+      if (!booksResponse || booksResponse.books.length === 0) {
+        return null;
+      }
+
+      return booksResponse;
+    } catch (error) {
+      throw new InternalServerErrorException('Error fetching recommendations');
     }
   }
 }
