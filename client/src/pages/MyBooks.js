@@ -69,6 +69,10 @@ function MyBooks() {
 
       const newBooks = books.filter((book) => book.id !== id);
       setBooks(newBooks);
+
+      if (newBooks.length === 0) {
+        setRequestFailed(true);
+      }
     } catch (error) {
       if (error.message === "Missing credentials") {
         navigate("/login");

@@ -64,14 +64,21 @@ function BookCard({ book, index }) {
           {book.buylink && (
             <button
               className="btn btn-primary"
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 window.open(book.buylink, "_blank");
               }}
             >
               Buy Now
             </button>
           )}
-          <button className="btn btn-outline" onClick={addBookToList}>
+          <button
+            className="btn btn-outline"
+            onClick={(e) => {
+              e.stopPropagation();
+              addBookToList();
+            }}
+          >
             Add To List
           </button>
         </div>
