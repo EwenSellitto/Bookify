@@ -82,7 +82,7 @@ function MyBooks() {
     <div className="my-books-page">
       <h1>My Books</h1>
       {requestFailed ? (
-        <div className="loading">You haven't added any books yet.</div>
+        <div>You haven't added any books yet.</div>
       ) : books.length > 0 ? (
         <div className="books-grid">
           {books.map((book, index) => (
