@@ -151,6 +151,10 @@ export class GoogleBooksService {
         throw new HttpException('Book not found', HttpStatus.NOT_FOUND);
       }
 
+      const removeHtmlTags = (html: string) => {
+        return html.replace(/<[^>]*>/g, '');
+      };
+
       const book = {
         id: response.data.id,
         title: response.data.volumeInfo.title || 'Unknown Title',
@@ -159,7 +163,7 @@ export class GoogleBooksService {
         genres: response.data.volumeInfo.categories || ['Unknown Genre'],
         thumbnail: response.data.volumeInfo.imageLinks?.thumbnail || null,
         description:
-          response.data.volumeInfo.description || 'No description available',
+          removeHtmlTags(response.data.volumeInfo.description) || 'No description available',
         rating: response.data.volumeInfo.averageRating || 'No rating available',
         ratingcount:
           response.data.volumeInfo.ratingsCount || 'No rating count available',
