@@ -1,9 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import BookSvg from "../assets/book.svg";
+import fetchServer from "../utils/fetchServer";
 import "./BookCard.css";
 
 function BookCard({ book, index }) {
   const navigate = useNavigate();
+
+  const addBookToList = async () => {
+    const url = "user/me/book";
+
+    try {
+      await fetchServer(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cUnLivreTqtId: book.id }),
+      });
+    } catch (error) {
+      if (error.message === "Missing credentials") {
+        navigate("/login");
+        return;
+      }
+      console.log(error);
+    }
+  };
 
   return (
     <div
@@ -50,7 +71,9 @@ function BookCard({ book, index }) {
               Buy Now
             </button>
           )}
-          <button className="btn btn-outline">Add To List</button>
+          <button className="btn btn-outline" onClick={addBookToList}>
+            Add To List
+          </button>
         </div>
       </div>
     </div>
