@@ -65,6 +65,7 @@
   border-radius: 12px;
   white-space: nowrap;
   outline: none;
+  text-wrap: auto;
 }
 
 .book-actions {
