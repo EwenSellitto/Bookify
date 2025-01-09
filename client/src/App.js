@@ -10,14 +10,14 @@ import MyBooks from "./pages/MyBooks";
 import NotFound from "./pages/NotFound";
 import Recommendations from "./pages/Recommendations";
 import { AuthProvider } from "./providers/authContext";
-
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   const sampleBooks = [
     {
       title: "The Hunger Games: Book 1",
       authors: ["Suzanne Collins"],
-      thumbnail: "cover",
+      thumbnail: null,
       genres: [
         "Young Adult Fiction",
         "Juvenile Fiction",
@@ -27,43 +27,43 @@ function App() {
     {
       title: "Harry Potter and the Philosopher's Stone",
       authors: ["J.K. Rowling"],
-      thumbnail: "cover",
+      thumbnail: null,
       genres: ["Fiction", "Fantasy"],
     },
     {
       title: "The Da Vinci Code",
       authors: ["Dan Brown"],
-      thumbnail: "cover",
+      thumbnail: null,
       genres: ["Fiction", "Mystery"],
     },
     {
       title: "To Kill a Mockingbird",
       authors: ["Harper Lee"],
-      thumbnail: "cover",
+      thumbnail: null,
       genres: ["Fiction", "Classic"],
     },
     {
       title: "1984",
       authors: ["George Orwell"],
-      thumbnail: "cover",
+      thumbnail: null,
       genres: ["Fiction", "Dystopian"],
     },
     {
       title: "Pride and Prejudice",
       authors: ["Jane Austen"],
-      thumbnail: "cover",
+      thumbnail: null,
       genres: ["Fiction", "Romance"],
     },
     {
       title: "The Great Gatsby",
       authors: ["F. Scott Fitzgerald"],
-      thumbnail: "cover",
+      thumbnail: null,
       genres: ["Fiction", "Classic"],
     },
     {
       title: "Moby Dick",
       authors: ["Herman Melville"],
-      thumbnail: "cover",
+      thumbnail: null,
       genres: ["Fiction", "Adventure"],
     },
   ];
@@ -86,6 +86,10 @@ function App() {
             <Route path="/profile" element={<div>Profile</div>} />
             <Route path="/books/:id" element={<BookDetails />} />
             <Route path="/login" element={<Login />} />
+            <Route
+              path="/search/:type/:query/:page/:pageSize"
+              element={<SearchPage />}
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

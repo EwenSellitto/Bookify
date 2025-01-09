@@ -56,6 +56,17 @@
   align-self: flex-start;
 }
 
+.no-book-cover {
+  height: 300px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3f2f2;
+  border-radius: 8px;
+  align-self: flex-start;
+}
+
 .book-info {
   display: flex;
   flex-direction: column;

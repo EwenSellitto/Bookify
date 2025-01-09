@@ -1,4 +1,4 @@
-.trending-book-card {
+.popular-book-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,28 +10,39 @@
   cursor: pointer;
 }
 
-.trending-book-card:hover {
+.popular-book-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.trending-book-card img {
-  width: 100%;
-  max-width: 100px;
+.thumbnail-img {
   height: 150px;
-  object-fit: cover;
+  object-fit: contain;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #f3f2f2;
+  min-width: 100px;
+}
+
+.no-thumbnail {
+  height: 150px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3f2f2;
   border-radius: 5px;
   margin-bottom: 10px;
 }
 
-.trending-book-info h3 {
+.popular-book-info h3 {
   font-size: 1rem;
   color: #333;
   margin-bottom: 5px;
   text-align: center;
 }
 
-.trending-book-info p {
+.popular-book-info p {
   font-size: 0.9rem;
   color: #777;
   text-align: center;
