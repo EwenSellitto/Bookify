@@ -79,10 +79,8 @@ function Header() {
           </button>
 
           {isProfileMenuOpen && (
-            <div className="profile-dropdown">
-              <button className="dropdown-item" onClick={handleLogout}>
-                Logout
-              </button>
+            <div className="profile-dropdown" onClick={handleLogout}>
+              <button className="dropdown-item">Logout</button>
               <img src={LogoutSvg} className="logout-icon" />
             </div>
           )}
@@ -153,10 +151,8 @@ function Header() {
           </button>
 
           {isProfileMenuOpen && (
-            <div className="profile-dropdown">
-              <button className="dropdown-item" onClick={handleLogout}>
-                Logout
-              </button>
+            <div className="profile-dropdown" onClick={handleLogout}>
+              <button className="dropdown-item">Logout</button>
               <img src={LogoutSvg} className="logout-icon" />
             </div>
           )}

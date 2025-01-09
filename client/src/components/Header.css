@@ -120,6 +120,7 @@
   width: 150px;
   align-items: center;
   padding: 2px;
+  cursor: pointer;
 }
 
 .logout-icon {
