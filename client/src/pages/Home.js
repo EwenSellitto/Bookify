@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import PopularBook from "../components/PopularBook";
+import { useAuth } from "../providers/authContext";
+import fetchServer from "../utils/fetchServer";
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [trendingBooks, setTrendingBooks] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [resquestFailed, setResquestFailed] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const url = "http://localhost:5000/google-books/genres?count=12";
+      const url = "google-books/genres?count=12";
 
       try {
-        const res = await fetch(url, {
+        const res = await fetchServer(url, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -23,6 +27,10 @@ function Home() {
         setCategories(res);
         return res[Math.floor(Math.random() * res.length)];
       } catch (error) {
+        if (error.message === "Missing credentials") {
+          navigate("/login");
+          return;
+        }
         console.log(error);
         setResquestFailed(true);
       }
@@ -30,10 +38,10 @@ function Home() {
 
     const fetchTrendingBooks = async (selectedCategory) => {
       const url =
-        "http://localhost:5000/google-books/search?genre=" + selectedCategory;
+        "google-books/search?genre=" + selectedCategory;
 
       try {
-        const data = await fetch(url, {
+        const data = await fetchServer(url, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -48,18 +56,23 @@ function Home() {
           setResquestFailed(true);
         }
       } catch (error) {
+        if (error.message === "Missing credentials") {
+          console.log("oui");
+          navigate("/login");
+          return;
+        }
         console.log(error);
         setResquestFailed(true);
       }
     };
 
     const fetchAll = async () => {
-      var selectedCategory = await fetchCategories();
+      const selectedCategory = await fetchCategories();
       await fetchTrendingBooks(selectedCategory);
     };
 
     fetchAll();
-  }, []);
+  }, [navigate]);
 
   function parseTrendingBooks(data) {
     var books = [];

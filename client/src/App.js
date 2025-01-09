@@ -5,9 +5,12 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import BookDetails from "./pages/BookDetails";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 import MyBooks from "./pages/MyBooks";
 import NotFound from "./pages/NotFound";
 import Recommendations from "./pages/Recommendations";
+import { AuthProvider } from "./providers/authContext";
+
 
 function App() {
   const sampleBooks = [
@@ -66,26 +69,29 @@ function App() {
   ];
 
   return (
-    <div className="app">
-      <Header />
-      <div className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/my-books"
-            element={<MyBooks books={sampleBooks.slice(0, 4)} />}
-          />
-          <Route
-            path="/recommendations"
-            element={<Recommendations books={sampleBooks} />}
-          />
-          <Route path="/profile" element={<div>Profile</div>} />
-          <Route path="/books/:id" element={<BookDetails />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+    <AuthProvider>
+      <div className="app">
+        <Header />
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/my-books"
+              element={<MyBooks books={sampleBooks.slice(0, 4)} />}
+            />
+            <Route
+              path="/recommendations"
+              element={<Recommendations books={sampleBooks} />}
+            />
+            <Route path="/profile" element={<div>Profile</div>} />
+            <Route path="/books/:id" element={<BookDetails />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </AuthProvider>
   );
 }
 

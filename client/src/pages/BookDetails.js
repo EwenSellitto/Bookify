@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import fetchServer from "../utils/fetchServer";
 import "./BookDetails.css";
 import NotFound from "./NotFound";
 
@@ -19,10 +20,10 @@ function BookDetails() {
 
   useEffect(() => {
     const fetchBook = async () => {
-      const url = "http://localhost:5000/google-books/book?id=" + id;
+      const url = "google-books/book?id=" + id;
 
       try {
-        const res = await fetch(url, {
+        const res = await fetchServer(url, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -40,9 +41,9 @@ function BookDetails() {
   }, []);
 
   if (
-    book.title == undefined ||
-    book.authors == undefined ||
-    book.genres == undefined
+    book.title === undefined ||
+    book.authors === undefined ||
+    book.genres === undefined
   ) {
     return <NotFound />;
   }
