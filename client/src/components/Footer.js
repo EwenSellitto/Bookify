@@ -47,9 +47,7 @@ function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>
-          &copy; {new Date().getFullYear()} BookFinder. All Rights Reserved.
-        </p>
+        <p>&copy; {new Date().getFullYear()} Bookify. All Rights Reserved.</p>
       </div>
     </footer>
   );

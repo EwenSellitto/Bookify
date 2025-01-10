@@ -22,7 +22,7 @@ function Header() {
   if (!auth.user) {
     return (
       <header className="header">
-        <div className="logo">BookFinder</div>
+        <div className="logo">Bookify</div>
       </header>
     );
   }
@@ -67,7 +67,7 @@ function Header() {
             window.location.href = "/";
           }}
         >
-          BookFinder
+          Bookify
         </div>
 
         <div className="profile-menu-container">
@@ -104,7 +104,7 @@ function Header() {
               window.location.href = "/";
             }}
           >
-            BookFinder
+            Bookify
           </div>
         </div>
 
