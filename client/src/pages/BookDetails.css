@@ -79,6 +79,8 @@
   font-size: 2rem;
   margin-top: 0;
   margin-bottom: 0;
+  display: flex;
+  overflow-wrap: anywhere;
 }
 
 .book-info h2 {
@@ -130,10 +132,10 @@
 
 @media (max-width: 768px) {
   .book-cover {
-    width: 100%;
+    width: 50%;
   }
 
   .no-book-cover {
-    width: 100%;
+    width: 50%;
   }
 }

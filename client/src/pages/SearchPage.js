@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import SearchSvg from "../assets/search.svg";
 import BookCard from "../components/BookCard";
 import LoadingSpinner from "../components/LoadingSpinner";
 import NoBooksFound from "../components/NoBooksFound";
@@ -106,7 +107,9 @@ function SearchPage() {
             }
           }}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={handleSearch}>
+          <img src={SearchSvg} className="search-icon" alt="search" />
+        </button>
       </div>
       {books.length === 0 && !requestFailed ? (
         <LoadingSpinner />

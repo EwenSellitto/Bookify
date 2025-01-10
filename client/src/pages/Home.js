@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SearchSvg from "../assets/search.svg";
 import LoadingSpinner from "../components/LoadingSpinner";
 import PopularBook from "../components/PopularBook";
 import fetchServer from "../utils/fetchServer";
@@ -120,7 +121,9 @@ function Home() {
               }
             }}
           />
-          <button onClick={handleSearch}>Search</button>
+          <button onClick={handleSearch}>
+            <img src={SearchSvg} className="search-icon" alt="search" />
+          </button>
         </div>
       </div>
 

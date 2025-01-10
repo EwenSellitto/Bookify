@@ -60,6 +60,8 @@
 
 .search-page-type-dropdown {
   background-color: #f3f2f2;
+  border-width: 1px;
+  border-color: black;
   border-right: none;
   border-radius: 30px 0 0 30px;
   cursor: pointer;
@@ -74,17 +76,18 @@
   outline: none;
   font-size: 1rem;
   background: #f7f7f7;
-  border-radius: 0;
   border-left: none;
   border-right: none;
   border-width: 1px;
+  border-color: black;
+  width: inherit;
 }
 
 .search-page-bar-large button {
   background-color: #ff9000; /* Orange */
   color: black;
   font-weight: 600;
-  padding: 15px 30px;
+  padding: 15px 20px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease;
@@ -92,14 +95,11 @@
   border-left: none;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
+  display: flex;
+  align-items: center;
+  padding-left: 17px;
 }
 
 .search-page-bar-large button:hover {
   background-color: #f57f17; /* Darker orange */
-}
-
-@media screen and (max-width: 620px) {
-  .search-page-bar-large {
-    width: auto;
-  }
 }

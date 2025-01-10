@@ -152,6 +152,7 @@ export class GoogleBooksService {
       }
 
       const removeHtmlTags = (html: string) => {
+        if (!html) return html;
         return html.replace(/<[^>]*>/g, '');
       };
 
