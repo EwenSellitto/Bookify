@@ -4,7 +4,7 @@ Bookify is a web application that provides personalized book recommendations to 
 
 ## Accessing the Live Project
 
-If you don't want to run the project locally, you can access the live version at [http://85.215.172.159/#/](http://85.215.172.159/#/).
+If you don't want to run the project locally, you can access the live version at [http://85.215.172.159/#/](http://85.215.172.159/#/)
 
 Otherwise, you can follow the instructions below to run the project on your machine.
 
