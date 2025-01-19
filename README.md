@@ -4,7 +4,7 @@ Bookify is a web application that provides personalized book recommendations to 
 
 ## Accessing the Live Project
 
-If you don't want to run the project locally, you can access the live version at [http://85.215.172.159/#/](http://85.215.172.159/#/)
+If you don't want to run the project locally, you can access the live version at [http://176.181.66.64:33333/#/login](http://176.181.66.64:33333/#/login)
 
 Otherwise, you can follow the instructions below to run the project on your machine.
 
@@ -53,7 +53,6 @@ docker-compose up --build
 ```
 
 2. The frontend will be accessible at http://localhost:3000 and the backend at http://localhost:5000.
-
 3. After you're done, you can stop the containers with:
 
 ```sh
